@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+    <h1 th:text="${user.login}">login</h1>
+    <div  th:each="note : ${user.notes}">
+        <a href="" th:href="|/user/${user.id}/note/${note.id}|" th:text="${note.title}">Notka</a>
+    </div>
+</body>
+</html>
