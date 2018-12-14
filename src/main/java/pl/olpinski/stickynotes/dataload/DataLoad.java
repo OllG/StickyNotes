@@ -1,4 +1,5 @@
-package pl.olpinski.stickynotes.bootstrap;
+/*
+package pl.olpinski.stickynotes.dataload;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -42,3 +43,4 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         userRepository.save(firstUser);
     }
 }
+*/

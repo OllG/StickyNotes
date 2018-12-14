@@ -8,9 +8,13 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
     private String title;
+
+    @Column(length = 240)
     private String content;
 
     public Long getId() {
