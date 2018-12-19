@@ -26,4 +26,21 @@ public class UserServiceImpl implements UserService {
 
         throw new RuntimeException("metoda findUserById() w klasie UserServiceImpl dostała nieprawidlowe id.");
     }
+
+    //@Override
+    public User findUserByLogin(String login) {
+
+        //konwersja
+        User user = userRepository.findOneByLogin(login);
+        return user;
+    }
+
+    @Override
+    public boolean authenticate(String login, String password) {
+        User user = userRepository.findOneByLoginAndPassword(login, password);
+        if(user == null) return false;
+        else return true;
+    }
+
+
 }

@@ -6,4 +6,7 @@ import pl.olpinski.stickynotes.domain.User;
 
 @Repository
 public interface UserRepository extends CrudRepository <User, Long> {
+
+    User findOneByLoginAndPassword(String login, String password);
+    User findOneByLogin(String login);
 }

@@ -1,5 +1,6 @@
 package pl.olpinski.stickynotes.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +19,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/{user_id}")
-    public String user(Model model, @PathVariable("user_id") Long id){
+    @GetMapping("/user")
+    public String user(Model model, Authentication authentication){
+
+
+        Long id = (Long) authentication.getPrincipal();
         User user = userService.findUserById(id);
         model.addAttribute("user", user);
         return "user";
