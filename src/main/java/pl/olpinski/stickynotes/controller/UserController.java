@@ -23,10 +23,4 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/user/{user_id}/newnote")
-    public String newNote(Model model, @PathVariable("user_id") Long id){
-        model.addAttribute("user_id", id);
-        return "newnote";
-
-    }
 }
