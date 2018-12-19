@@ -27,6 +27,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         String password = DigestUtils.md5DigestAsHex(authentication.getCredentials().toString().getBytes());
 
         if(userService.authenticate(login, password)){
+
             //Dodawać do sesji userDTO może
             User user = userService.findUserByLogin(login);
             Long id = user.getId();
