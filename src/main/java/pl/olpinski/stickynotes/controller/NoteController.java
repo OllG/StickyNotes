@@ -30,14 +30,14 @@ public class NoteController {
         return "note";
     }
 
-    @GetMapping("/user/new_note")
+    @GetMapping("/new_note")
     public String newNoteForm(Model model, Authentication authentication){
 
         model.addAttribute("user_id", authentication.getPrincipal());
         return "new_note";
     }
 
-    @PostMapping("/user/new_note")
+    @PostMapping("/new_note")
     public ModelAndView addNewNote(Model model, @RequestParam("title") String title, @RequestParam("content") String content, Authentication authentication){
 
         Long userId = (Long) authentication.getPrincipal();
@@ -49,6 +49,13 @@ public class NoteController {
         noteService.saveNote(noteDto);
 
         return new ModelAndView("redirect:/notes/");
+    }
 
+    @GetMapping("/note/edit/{id}")
+    public String editNoteForm(@PathVariable Long id, Model model){
+
+        NoteDto note = noteService.getNoteById(id);
+        model.addAttribute("note", note);
+        return "edit_note";
     }
 }
