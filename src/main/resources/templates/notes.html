@@ -7,7 +7,7 @@
 <body>
     <h1 th:text="${user.login}">login</h1>
     <div  th:each="note : ${user.notes}">
-        <a href="" th:href="|/user/${note.id}|" th:text="${note.title}">Notka</a>
+        <a href="" th:href="|/note/${note.id}|" th:text="${note.title}">Notka</a>
     </div>
     <br/>
     <a href="/user/new_note">Nowa notka</a><br/><br/>

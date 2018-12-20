@@ -3,9 +3,16 @@ package pl.olpinski.stickynotes.converter;
 import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.domain.Note;
 import pl.olpinski.stickynotes.dto.NoteDto;
+import pl.olpinski.stickynotes.repository.UserRepository;
 
 @Component
 public class NoteConverter implements Converter<Note, NoteDto> {
+
+    private UserRepository userRepository;
+
+    public NoteConverter(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public NoteDto convert(Note object) {
@@ -26,6 +33,18 @@ public class NoteConverter implements Converter<Note, NoteDto> {
 
     @Override
     public Note deconvert(NoteDto dtoObject) {
-        return null;
+
+        Note note = new Note();
+        note.setId(dtoObject.getId());
+        note.setTitle(dtoObject.getTitle());
+        note.setContent(dtoObject.getContent());
+
+        if(userRepository.findById(dtoObject.getUserId()).isPresent()) {
+            note.setUser(userRepository.findById(dtoObject.getUserId()).get());
+            return note;
+        }
+
+        throw new RuntimeException("deconvert method get wrond user_id");
+        //return null;
     }
 }

@@ -33,9 +33,4 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginAttempt(@RequestParam("login") String login, @RequestParam("password") String password){
-
-        return "login";
-    }
 }

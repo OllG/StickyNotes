@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.olpinski.stickynotes.domain.Note;
+import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.service.NoteService;
+
+import java.time.LocalDateTime;
 
 @Controller
 public class NoteController {
@@ -18,6 +21,13 @@ public class NoteController {
 
     public NoteController(NoteService noteService) {
         this.noteService = noteService;
+    }
+
+    @GetMapping("/note/{id}")
+    public String note(@PathVariable Long id, Model model){
+        NoteDto noteDto = noteService.getNoteById(id);
+        model.addAttribute("note", noteDto);
+        return "note";
     }
 
     @GetMapping("/user/new_note")
@@ -31,9 +41,14 @@ public class NoteController {
     public ModelAndView addNewNote(Model model, @RequestParam("title") String title, @RequestParam("content") String content, Authentication authentication){
 
         Long userId = (Long) authentication.getPrincipal();
+        NoteDto noteDto = new NoteDto();
+        noteDto.setUserId(userId);
+        noteDto.setTitle(title);
+        noteDto.setContent(content);
 
+        noteService.saveNote(noteDto);
 
-        return new ModelAndView("redirect:/user/");
+        return new ModelAndView("redirect:/notes/");
 
     }
 }

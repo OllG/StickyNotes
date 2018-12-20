@@ -31,4 +31,11 @@ public class NoteServiceImpl implements NoteService {
         }
         throw new RuntimeException("podano nieistniejace id do metody getNoteById()");
     }
+
+    @Override
+    public Note saveNote(NoteDto noteDto) {
+        Note note = noteConverter.deconvert(noteDto);
+        Note savedNote = noteRepository.save(note);
+        return savedNote;
+    }
 }
