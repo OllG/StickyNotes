@@ -14,6 +14,8 @@ import pl.olpinski.stickynotes.exception.LoginTakenException;
 import pl.olpinski.stickynotes.exception.MailTakenException;
 import pl.olpinski.stickynotes.service.UserService;
 
+import javax.validation.Valid;
+
 @Controller
 public class UserController {
 
@@ -45,13 +47,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ModelAndView registerUser(NewUserDto newUserDto/*@RequestParam String login, @RequestParam String password, @RequestParam String mail*/){
+    public ModelAndView registerUser(@Valid NewUserDto newUserDto/*, BindingResult bindingResult*/){
 
         try {
             userService.registerNewUser(newUserDto);
         } catch (LoginTakenException e){
-          /*bindingResult.rejectValue("login", "login already taken");
-            return new ModelAndView("/register");*/
+
+          /*  bindingResult.rejectValue("login", "login already taken");
+            return new ModelAndView("/register");
+            */
             //e.printStackTrace();
             ModelAndView modelAndView = new ModelAndView("redirect:/register");
             modelAndView.addObject("loginError", "login");

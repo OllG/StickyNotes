@@ -1,9 +1,14 @@
 package pl.olpinski.stickynotes.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class NewUserDto {
 
+    @NotNull
     private String login;
+    @NotNull
     private String password;
+    @NotNull
     private String mail;
 
     public NewUserDto(String login, String password, String mail) {
