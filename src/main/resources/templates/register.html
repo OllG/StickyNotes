@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
@@ -11,5 +11,7 @@
         Mail: <input type="text" name="mail"><br/>
         <input type="submit">
     </form>
+    <p th:if="${loginError} == 'login'">Login jest już zajęty</p>
+    <p th:if="${mailError} == 'mail'">Mail jest już zajęty</p>
 </body>
 </html>

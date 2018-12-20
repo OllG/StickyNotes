@@ -4,7 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import pl.olpinski.stickynotes.converter.UserConverter;
 import pl.olpinski.stickynotes.domain.User;
+import pl.olpinski.stickynotes.dto.NewUserDto;
 import pl.olpinski.stickynotes.dto.UserDto;
+import pl.olpinski.stickynotes.exception.LoginTakenException;
+import pl.olpinski.stickynotes.exception.MailTakenException;
 import pl.olpinski.stickynotes.repository.UserRepository;
 
 import java.util.Optional;
@@ -37,7 +40,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findUserByLogin(String login) {
 
         //konwersja
-        User user = userRepository.findOneByLogin(login);
+        User user = userRepository.findOneByLoginIgnoreCase(login);
         UserDto userDto = userConverter.convert(user);
         return userDto;
     }
@@ -50,13 +53,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User registerNewUser(UserDto userDto) {
+    public User registerNewUser(NewUserDto newUserDto) {
+
+
+        if(userRepository.findOneByLoginIgnoreCase(newUserDto.getLogin()) != null){
+            throw new LoginTakenException();
+        }
+        if(userRepository.findOneByMailIgnoreCase(newUserDto.getMail()) != null){
+            throw new MailTakenException();
+        }
 
         User newUser = new User();
-        newUser.setLogin(userDto.getLogin());
+
+        newUser.setLogin(newUserDto.getLogin());
         //uzyc konwerter, ale tutaj podmienc plain password na szyfrowane
-        newUser.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
-        newUser.setMail(userDto.getMail());
+        newUser.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));
+        newUser.setMail(newUserDto.getMail());
 
         User savedUser = userRepository.save(newUser);
 
