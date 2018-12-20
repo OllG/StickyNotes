@@ -7,6 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 import pl.olpinski.stickynotes.domain.User;
+import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.service.UserService;
 
 import java.util.ArrayList;
@@ -29,8 +30,8 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         if(userService.authenticate(login, password)){
 
             //Dodawać do sesji userDTO może
-            User user = userService.findUserByLogin(login);
-            Long id = user.getId();
+            UserDto userDto = userService.findUserByLogin(login);
+            Long id = userDto.getId();
 
             return new UsernamePasswordAuthenticationToken(
                     id, password, new ArrayList<>());

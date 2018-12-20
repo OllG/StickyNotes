@@ -15,7 +15,7 @@ public class User {
     private String password;
     private String mail;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Note> notes = new HashSet<>();
 
     public Long getId() {

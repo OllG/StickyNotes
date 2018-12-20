@@ -1,9 +1,10 @@
 package pl.olpinski.stickynotes.converter;
 
+import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.domain.Note;
 import pl.olpinski.stickynotes.dto.NoteDto;
 
-
+@Component
 public class NoteConverter implements Converter<Note, NoteDto> {
 
     @Override

@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login", "/register").permitAll()
-                .antMatchers("/customers/shouldBeLogged", "/customers/shouldBeLogged1")
+                .antMatchers("/user", "/user/new_note")
                 .authenticated()
                 //// other requests
                 .anyRequest().authenticated()
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/user")
+                .defaultSuccessUrl("/notes")
                 .permitAll()
                 .and()
                 // configure logout

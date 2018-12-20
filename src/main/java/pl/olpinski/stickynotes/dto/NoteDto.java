@@ -5,7 +5,6 @@ public class NoteDto {
     private Long id;
     private Long userId;
     private String title;
-    //private String shortenedContent;
     private String content;
 
     public java.lang.Long getId() {

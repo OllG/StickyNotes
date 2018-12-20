@@ -1,5 +1,6 @@
 package pl.olpinski.stickynotes.converter;
 
+import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.domain.Note;
 import pl.olpinski.stickynotes.domain.User;
 import pl.olpinski.stickynotes.dto.NoteDto;
@@ -7,7 +8,9 @@ import pl.olpinski.stickynotes.dto.UserDto;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+@Component
 public class UserConverter implements Converter <User, UserDto> {
 
     NoteConverter noteConverter;
@@ -27,11 +30,9 @@ public class UserConverter implements Converter <User, UserDto> {
         userDto.setMail(object.getMail());
 
         Set<Note> set = object.getNotes();
-        Set<NoteDto> noteDtoSet = new HashSet<>();
+        Set<NoteDto> noteDtoSet;// = new HashSet<>();
 
-        set.forEach(note -> {
-            noteDtoSet.add(noteConverter.convert(note));
-        });
+        noteDtoSet = set.stream().map(note -> noteConverter.convert(note)).collect(Collectors.toSet());
 
         userDto.setNotes(noteDtoSet);
 

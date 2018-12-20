@@ -4,10 +4,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.olpinski.stickynotes.domain.User;
+import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.service.UserService;
 
 @Controller
@@ -19,14 +18,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/notes")
     public String user(Model model, Authentication authentication){
 
-
         Long id = (Long) authentication.getPrincipal();
-        User user = userService.findUserById(id);
-        model.addAttribute("user", user);
-        return "user";
+        UserDto userDto = userService.findUserById(id);
+        model.addAttribute("user", userDto);
+        return "notes";
     }
 
     @GetMapping("/login")

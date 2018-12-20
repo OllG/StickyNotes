@@ -20,14 +20,6 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @GetMapping("/user/{id}")
-    public String note(Model model, @PathVariable Long id){
-        Note note = noteService.getNoteById(id);
-
-        model.addAttribute("note", note);
-        return "note";
-    }
-
     @GetMapping("/user/new_note")
     public String newNoteForm(Model model, Authentication authentication){
 
@@ -39,6 +31,7 @@ public class NoteController {
     public ModelAndView addNewNote(Model model, @RequestParam("title") String title, @RequestParam("content") String content, Authentication authentication){
 
         Long userId = (Long) authentication.getPrincipal();
+
 
         return new ModelAndView("redirect:/user/");
 
