@@ -1,6 +1,7 @@
 package pl.olpinski.stickynotes.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 import pl.olpinski.stickynotes.converter.UserConverter;
 import pl.olpinski.stickynotes.domain.User;
 import pl.olpinski.stickynotes.dto.UserDto;
@@ -46,5 +47,19 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findOneByLoginAndPassword(login, password);
         if(user == null) return false;
         else return true;
+    }
+
+    @Override
+    public User registerNewUser(UserDto userDto) {
+
+        User newUser = new User();
+        newUser.setLogin(userDto.getLogin());
+        //uzyc konwerter, ale tutaj podmienc plain password na szyfrowane
+        newUser.setPassword(DigestUtils.md5DigestAsHex(userDto.getPassword().getBytes()));
+        newUser.setMail(userDto.getMail());
+
+        User savedUser = userRepository.save(newUser);
+
+        return savedUser;
     }
 }

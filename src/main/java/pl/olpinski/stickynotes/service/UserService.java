@@ -10,4 +10,6 @@ public interface UserService {
     UserDto findUserByLogin(String login);
     boolean authenticate(String login, String password);
 
+    User registerNewUser (UserDto userDto);
+
 }

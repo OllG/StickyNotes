@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class UserDto {
 
-    private java.lang.Long id;
+    private Long id;
 
     private String login;
     private String password;
