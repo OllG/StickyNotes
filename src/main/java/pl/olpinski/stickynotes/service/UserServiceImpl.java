@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
     public User registerNewUser(NewUserDto newUserDto) {
 
 
+        //throwing exception with all not valid data
         if(userRepository.findOneByLoginIgnoreCase(newUserDto.getLogin()) != null){
             throw new LoginTakenException();
         }
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
 
         newUser.setLogin(newUserDto.getLogin());
+
         //uzyc konwerter, ale tutaj podmienc plain password na szyfrowane
         newUser.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));
         newUser.setMail(newUserDto.getMail());
