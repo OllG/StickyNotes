@@ -8,7 +8,11 @@
     <div style="width: 300px;height: 300px;border: rebeccapurple;border-style: solid;">
         <h1 style="text-align: center" th:text="${note.title}">Title</h1>
         <p th:text="${note.content}" style="margin: 15px;">Content</p>
-        <a th:href="|/note/edit/${note.id}|"></a>
+        <br/>
+        <form>
+            <button th:type="submit" th:formaction="|/note/${note.id}|" th:formmethod="post">edit</button><br/><br/>
+        </form>
+        <a th:href="|/note/edit/${note.id}|">Edit</a>
     </div>
 </body>
 </html>
