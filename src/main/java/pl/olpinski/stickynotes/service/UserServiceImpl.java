@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         throw new RuntimeException("metoda findUserById() w klasie UserServiceImpl dostała nieprawidlowe id.");
     }
 
-    //@Override
+    @Override
     public UserDto findUserByLogin(String login) {
 
         //konwersja
