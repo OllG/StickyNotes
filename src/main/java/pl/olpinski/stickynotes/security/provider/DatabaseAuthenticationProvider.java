@@ -1,12 +1,12 @@
 package pl.olpinski.stickynotes.security.provider;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
-import pl.olpinski.stickynotes.domain.User;
 import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.service.UserService;
 

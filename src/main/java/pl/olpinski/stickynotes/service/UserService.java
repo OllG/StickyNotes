@@ -12,5 +12,6 @@ public interface UserService {
     boolean authenticate(String login, String password);
 
     User registerNewUser (NewUserDto newUserDto);
+    boolean activateUser(String login, String token);
 
 }

@@ -3,7 +3,6 @@ package pl.olpinski.stickynotes.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +18,7 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
-    UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -66,6 +65,13 @@ public class UserController {
             modelAndView.addObject("mailError", "mail");
             return modelAndView;
         }
-        return new ModelAndView("redirect:/note/");
+        return new ModelAndView("redirect:/notes/");
+    }
+
+    @GetMapping("/user/activate")
+    public ModelAndView activateUser(@RequestParam("login") String login, @RequestParam("token") String token){
+        boolean activated = userService.activateUser(login, token);
+
+        return new ModelAndView("redirect:/login");
     }
 }

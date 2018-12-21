@@ -1,4 +1,4 @@
-package pl.olpinski.stickynotes.service;
+package pl.olpinski.stickynotes.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,7 @@ import pl.olpinski.stickynotes.domain.Note;
 import pl.olpinski.stickynotes.dto.NewNoteDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.repository.NoteRepository;
+import pl.olpinski.stickynotes.service.NoteService;
 
 import java.util.Optional;
 

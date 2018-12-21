@@ -1,6 +1,7 @@
 package pl.olpinski.stickynotes.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,16 +11,39 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    //private LocalDateTime registrationDate;
-
     private String login;
     private String password;
+
+    private LocalDateTime creationTime;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
     private String mail;
-    private String status;
+    private String firstName;
+    private String lastName;
+
+    private String token;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Note> notes = new HashSet<>();
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
+    }
 
     public Long getId() {
         return id;
@@ -59,5 +83,29 @@ public class User {
 
     public void setNotes(Set<Note> notes) {
         this.notes = notes;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
