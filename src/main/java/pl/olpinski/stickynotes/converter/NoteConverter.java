@@ -59,8 +59,7 @@ public class NoteConverter{
         if(!user.isPresent()){
             throw new RuntimeException("Nie można znaleźć użytkownika");
         }
-
-        note.setUser(user.get());//poprawić optionala
+        note.setUser(user.get());
 
         note.setTitle(noteDto.getTitle());
         note.setContent(noteDto.getContent());
