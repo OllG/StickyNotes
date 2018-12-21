@@ -3,7 +3,10 @@ package pl.olpinski.stickynotes.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,32 +43,43 @@ public class UserController {
 
     @GetMapping("/register")
     public String registerForm(@RequestParam(required = false) String loginError,@RequestParam(required = false) String mailError, Model model){
+
+        model.addAttribute("user", new UserDto());
+
         model.addAttribute("loginError", loginError);
         model.addAttribute("mailError", mailError);
         return "register";
     }
 
     @PostMapping("/register")
-    public ModelAndView registerUser(@Valid NewUserDto newUserDto/*, BindingResult bindingResult*/){
+    public String registerUser(@ModelAttribute("user") @Validated NewUserDto newUserDto, BindingResult bindingResult, Model model){
+
+        model.addAttribute("user", newUserDto);
+
+        if (bindingResult.hasErrors()) {
+            return "customers/register";
+        }
 
         try {
             userService.registerNewUser(newUserDto);
         } catch (LoginTakenException e){
 
-          /*  bindingResult.rejectValue("login", "login already taken");
-            return new ModelAndView("/register");
-            */
-            //e.printStackTrace();
-            ModelAndView modelAndView = new ModelAndView("redirect:/register");
+            bindingResult.rejectValue("login", "login already taken");
+
+            e.printStackTrace();
+
+            return "register";
+
+            /*ModelAndView modelAndView = new ModelAndView("redirect:/register");
             modelAndView.addObject("loginError", "login");
-            return modelAndView;
+            return modelAndView;*/
         } catch (MailTakenException e){
             //e.printStackTrace();
             ModelAndView modelAndView = new ModelAndView("redirect:/register");
             modelAndView.addObject("mailError", "mail");
-            return modelAndView;
+            return "register";
         }
-        return new ModelAndView("redirect:/notes/");
+        return "redirect:/notes/";
     }
 
     @GetMapping("/user/activate")
