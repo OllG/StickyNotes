@@ -9,10 +9,7 @@
         <h1 style="text-align: center" th:text="${note.title}">Title</h1>
         <p th:text="${note.content}" style="margin: 15px;">Content</p>
         <br/>
-        <form>
-            <button th:type="submit" th:formaction="|/note/${note.id}|" th:formmethod="post">edit</button><br/><br/>
-        </form>
-        <a th:href="|/note/edit/${note.id}|">Edit</a>
+        <a th:href="|/note/${note.id}/edit|">Edit</a>
     </div>
 </body>
 </html>

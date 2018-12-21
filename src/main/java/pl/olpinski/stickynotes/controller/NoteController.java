@@ -30,6 +30,14 @@ public class NoteController {
         return "note";
     }
 
+    @GetMapping("/note/{id}/edit")
+    public String editNoteForm(@PathVariable Long id, Model model){
+
+        NoteDto note = noteService.getNoteById(id);
+        model.addAttribute("note", note);
+        return "edit_note";
+    }
+
     @GetMapping("/new_note")
     public String newNoteForm(Model model, Authentication authentication){
 
@@ -51,11 +59,4 @@ public class NoteController {
         return new ModelAndView("redirect:/notes/");
     }
 
-    @GetMapping("/note/edit/{id}")
-    public String editNoteForm(@PathVariable Long id, Model model){
-
-        NoteDto note = noteService.getNoteById(id);
-        model.addAttribute("note", note);
-        return "edit_note";
-    }
 }
