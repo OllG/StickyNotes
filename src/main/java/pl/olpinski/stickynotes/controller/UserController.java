@@ -25,7 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/notes")
+    @GetMapping({"/notes", "", "/"})
     public String user(Model model, Authentication authentication){
 
         Long id = (Long) authentication.getPrincipal();
