@@ -66,6 +66,6 @@ public class UserController {
             modelAndView.addObject("mailError", "mail");
             return modelAndView;
         }
-        return new ModelAndView("redirect:/notes/");
+        return new ModelAndView("redirect:/note/");
     }
 }

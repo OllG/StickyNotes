@@ -9,8 +9,6 @@ import pl.olpinski.stickynotes.domain.Note;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.service.NoteService;
 
-import java.time.LocalDateTime;
-
 @Controller
 @RequestMapping("/note")
 public class NoteController {
@@ -52,9 +50,9 @@ public class NoteController {
         noteDto.setTitle(title);
         noteDto.setContent(content);
 
-        noteService.saveNote(noteDto);
+        Note savedNote = noteService.saveNote(noteDto);
 
-        return new ModelAndView("redirect:/notes/");
+        return new ModelAndView("redirect:/note/" + savedNote.getId());
     }
 
 }
