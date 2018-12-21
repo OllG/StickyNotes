@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.olpinski.stickynotes.domain.Note;
+import pl.olpinski.stickynotes.dto.NewNoteDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.service.NoteService;
 
@@ -23,7 +24,7 @@ public class NoteController {
     public String note(@PathVariable Long id, Model model){
         NoteDto noteDto = noteService.getNoteById(id);
         model.addAttribute("note", noteDto);
-        return "note";
+        return "note/note";
     }
 
     @GetMapping("/{id}/edit")
@@ -31,26 +32,29 @@ public class NoteController {
 
         NoteDto note = noteService.getNoteById(id);
         model.addAttribute("note", note);
-        return "edit_note";
+        return "/note/edit_note";
+    }
+
+    @PostMapping("/{id}/edit")
+    public ModelAndView editNote(NoteDto noteDto){
+        Note savedNote = noteService.editNote(noteDto);
+
+        return new ModelAndView("redirect:/note/" + savedNote.getId());
     }
 
     @GetMapping("/new")
     public String newNoteForm(Model model, Authentication authentication){
 
         model.addAttribute("user_id", authentication.getPrincipal());
-        return "new_note";
+        return "/note/new_note";
     }
 
     @PostMapping("/new")
-    public ModelAndView addNewNote(Model model, @RequestParam("title") String title, @RequestParam("content") String content, Authentication authentication){
+    public ModelAndView addNewNote(Model model, NewNoteDto newNoteDto, Authentication authentication){
 
         Long userId = (Long) authentication.getPrincipal();
-        NoteDto noteDto = new NoteDto();
-        noteDto.setUserId(userId);
-        noteDto.setTitle(title);
-        noteDto.setContent(content);
-
-        Note savedNote = noteService.saveNote(noteDto);
+        newNoteDto.setUserId(userId);
+        Note savedNote = noteService.saveNote(newNoteDto);
 
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.olpinski.stickynotes.converter.NoteConverter;
 import pl.olpinski.stickynotes.domain.Note;
+import pl.olpinski.stickynotes.dto.NewNoteDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.repository.NoteRepository;
 
@@ -33,9 +34,19 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note saveNote(NoteDto noteDto) {
-        Note note = noteConverter.deconvert(noteDto);
-        Note savedNote = noteRepository.save(note);
+    public Note saveNote(NewNoteDto noteDto) {
+        Note note = noteConverter.createNewNoteConversion(noteDto);
+        return noteRepository.save(note);
+    }
+
+    @Override
+    public Note editNote(NoteDto noteDto) {
+        Optional<Note> optNote = noteRepository.findById(noteDto.getId());
+        if (!optNote.isPresent()){
+            throw new RuntimeException("Próbujesz edytować notatkę, która nie istnieje");
+        }
+        Note editedNote = noteConverter.editNoteConversion(noteDto);
+        Note savedNote = noteRepository.save(editedNote);
         return savedNote;
     }
 }

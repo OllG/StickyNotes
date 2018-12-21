@@ -1,8 +1,6 @@
 package pl.olpinski.stickynotes.domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +16,7 @@ public class User {
     private String login;
     private String password;
     private String mail;
+    private String status;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Note> notes = new HashSet<>();

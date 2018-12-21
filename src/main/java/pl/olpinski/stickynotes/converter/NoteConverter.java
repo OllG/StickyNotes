@@ -2,11 +2,15 @@ package pl.olpinski.stickynotes.converter;
 
 import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.domain.Note;
+import pl.olpinski.stickynotes.domain.User;
+import pl.olpinski.stickynotes.dto.NewNoteDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.repository.UserRepository;
 
+import java.util.Optional;
+
 @Component
-public class NoteConverter implements Converter<Note, NoteDto> {
+public class NoteConverter{
 
     private UserRepository userRepository;
 
@@ -14,7 +18,7 @@ public class NoteConverter implements Converter<Note, NoteDto> {
         this.userRepository = userRepository;
     }
 
-    @Override
+    //@Override
     public NoteDto convert(Note object) {
         //zmienic user id na user dto i ustawiac przy konwersji usera
         Long id = object.getId();
@@ -31,20 +35,35 @@ public class NoteConverter implements Converter<Note, NoteDto> {
         return noteDto;
     }
 
-    @Override
-    public Note deconvert(NoteDto dtoObject) {
+
+    public Note createNewNoteConversion(NewNoteDto newNoteDto) {
 
         Note note = new Note();
-        note.setId(dtoObject.getId());
-        note.setTitle(dtoObject.getTitle());
-        note.setContent(dtoObject.getContent());
+        note.setTitle(newNoteDto.getTitle());
+        note.setContent(newNoteDto.getContent());
 
-        if(userRepository.findById(dtoObject.getUserId()).isPresent()) {
-            note.setUser(userRepository.findById(dtoObject.getUserId()).get());
+        if(userRepository.findById(newNoteDto.getUserId()).isPresent()) {
+            note.setUser(userRepository.findById(newNoteDto.getUserId()).get());
             return note;
         }
 
         throw new RuntimeException("deconvert method get wrond user_id");
         //return null;
+    }
+
+    public Note editNoteConversion(NoteDto noteDto){
+        Note note = new Note();
+        note.setId(noteDto.getId());
+
+        Optional<User> user = userRepository.findById(noteDto.getUserId());
+        if(!user.isPresent()){
+            throw new RuntimeException("Nie można znaleźć użytkownika");
+        }
+
+        note.setUser(user.get());//poprawić optionala
+
+        note.setTitle(noteDto.getTitle());
+        note.setContent(noteDto.getContent());
+        return note;
     }
 }
