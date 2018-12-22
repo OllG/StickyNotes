@@ -1,4 +1,4 @@
-package pl.olpinski.stickynotes.security.configuration;
+package pl.olpinski.stickynotes.web.security.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import pl.olpinski.stickynotes.security.provider.DatabaseAuthenticationProvider;
+import pl.olpinski.stickynotes.web.security.provider.DatabaseAuthenticationProvider;
 
 @Configuration
 @EnableWebSecurity

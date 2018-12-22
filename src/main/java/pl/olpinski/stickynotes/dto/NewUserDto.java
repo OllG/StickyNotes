@@ -1,10 +1,14 @@
 package pl.olpinski.stickynotes.dto;
 
+import pl.olpinski.stickynotes.validation.UniqueLogin;
+import pl.olpinski.stickynotes.validation.UniqueMail;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 public class NewUserDto {
 
+    @UniqueLogin
     @Size(min=3, max=30, message = "Login must contain between 3 and 30 characters")
     private String login;
 
@@ -12,6 +16,7 @@ public class NewUserDto {
     private String password;
 
     @Email
+    @UniqueMail
     @Size(min=1, message = "E-mail cannot be empty")
     private String mail;
 

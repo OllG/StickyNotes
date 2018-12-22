@@ -3,11 +3,11 @@ package pl.olpinski.stickynotes.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pl.olpinski.stickynotes.converter.NoteConverter;
-import pl.olpinski.stickynotes.domain.Note;
+import pl.olpinski.stickynotes.data.converter.NoteConverter;
+import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.dto.NewNoteDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
-import pl.olpinski.stickynotes.repository.NoteRepository;
+import pl.olpinski.stickynotes.data.repository.NoteRepository;
 import pl.olpinski.stickynotes.service.NoteService;
 
 import java.util.Optional;

@@ -1,11 +1,11 @@
-package pl.olpinski.stickynotes.controller;
+package pl.olpinski.stickynotes.web.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import pl.olpinski.stickynotes.domain.Note;
+import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.dto.NewNoteDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.service.NoteService;

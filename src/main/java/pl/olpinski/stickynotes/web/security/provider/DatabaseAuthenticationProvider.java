@@ -1,6 +1,5 @@
-package pl.olpinski.stickynotes.security.provider;
+package pl.olpinski.stickynotes.web.security.provider;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +28,6 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
         if(userService.authenticate(login, password)){
 
-            //Dodawać do sesji userDTO może
             UserDto userDto = userService.findUserByLogin(login);
             Long id = userDto.getId();
 

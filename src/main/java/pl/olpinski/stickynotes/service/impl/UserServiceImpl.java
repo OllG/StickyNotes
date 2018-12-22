@@ -3,17 +3,17 @@ package pl.olpinski.stickynotes.service.impl;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-import pl.olpinski.stickynotes.converter.UserConverter;
-import pl.olpinski.stickynotes.domain.User;
-import pl.olpinski.stickynotes.domain.UserStatus;
+import pl.olpinski.stickynotes.data.converter.UserConverter;
+import pl.olpinski.stickynotes.data.entity.User;
+import pl.olpinski.stickynotes.data.entity.UserStatus;
 import pl.olpinski.stickynotes.dto.NewUserDto;
 import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.exception.LoginTakenException;
-import pl.olpinski.stickynotes.exception.MailTakenException;
-import pl.olpinski.stickynotes.repository.UserRepository;
+import pl.olpinski.stickynotes.data.repository.UserRepository;
 import pl.olpinski.stickynotes.service.MailService;
 import pl.olpinski.stickynotes.service.UserService;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
@@ -50,10 +50,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findUserByLogin(String login) {
 
-        //konwersja
         User user = userRepository.findOneByLoginIgnoreCase(login);
-        UserDto userDto = userConverter.convert(user);
-        return userDto;
+        return userConverter.convert(user);
     }
 
     @Override
@@ -62,6 +60,7 @@ public class UserServiceImpl implements UserService {
         if(user == null) {
             return false;
         }
+        //if user is not activated, show him message that he needs to confirm his mail
         else if(user.getStatus() != UserStatus.ACTIVATED) {
             System.out.println(user.getStatus());
             return false;
@@ -76,14 +75,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerNewUser(NewUserDto newUserDto) {
 
-        //throwing exception with all not valid data
-        if(userRepository.findOneByLoginIgnoreCase(newUserDto.getLogin()) != null){
-            throw new LoginTakenException();
-        }
-        if(userRepository.findOneByMailIgnoreCase(newUserDto.getMail()) != null){
-            throw new MailTakenException();
-        }
-
         User newUser = new User();
 
         //converter
@@ -92,7 +83,9 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));//uzyc konwerter, ale tutaj podmienc plain password na szyfrowane
         newUser.setMail(newUserDto.getMail());
         newUser.setToken(UUID.randomUUID().toString());
-        //
+        //setting time here
+        newUser.setCreationTime(LocalDateTime.now());
+
 
         String activationTitle = messageSource.getMessage("mail.activation.title", new Object[]{
                 newUser.getLogin()}, Locale.getDefault());
@@ -115,5 +108,15 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isMailRegistered(String mail){
+        return userRepository.findOneByMailIgnoreCase(mail) != null;
+    }
+
+    @Override
+    public boolean isLoginTaken(String login) {
+        return userRepository.findOneByLoginIgnoreCase(login) != null;
     }
 }
