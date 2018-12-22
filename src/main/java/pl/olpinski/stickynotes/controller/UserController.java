@@ -3,7 +3,10 @@ package pl.olpinski.stickynotes.controller;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,39 +42,36 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String registerForm(@RequestParam(required = false) String loginError,@RequestParam(required = false) String mailError, Model model){
+    public String registerForm(NewUserDto newUserDto, Model model, @RequestParam(required = false) String loginError, @RequestParam(required = false) String mailError){
+
+        model.addAttribute("user", newUserDto);
+
         model.addAttribute("loginError", loginError);
         model.addAttribute("mailError", mailError);
         return "register";
     }
 
     @PostMapping("/register")
-    public ModelAndView registerUser(@Valid NewUserDto newUserDto/*, BindingResult bindingResult*/){
+    public String registerUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, BindingResult bindingResult, Model model){
 
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
         try {
             userService.registerNewUser(newUserDto);
         } catch (LoginTakenException e){
-
-          /*  bindingResult.rejectValue("login", "login already taken");
-            return new ModelAndView("/register");
-            */
-            //e.printStackTrace();
-            ModelAndView modelAndView = new ModelAndView("redirect:/register");
-            modelAndView.addObject("loginError", "login");
-            return modelAndView;
+            bindingResult.rejectValue("login", "loginTaken", "This login is already taken");
+            return "register";
         } catch (MailTakenException e){
-            //e.printStackTrace();
-            ModelAndView modelAndView = new ModelAndView("redirect:/register");
-            modelAndView.addObject("mailError", "mail");
-            return modelAndView;
+            bindingResult.rejectValue("mail", "mailTaken", "This e-mail is already registered");
+            return "register";
         }
-        return new ModelAndView("redirect:/notes/");
+        return "redirect:/notes/";
     }
 
     @GetMapping("/user/activate")
     public ModelAndView activateUser(@RequestParam("login") String login, @RequestParam("token") String token){
         boolean activated = userService.activateUser(login, token);
-
         return new ModelAndView("redirect:/login");
     }
 }
