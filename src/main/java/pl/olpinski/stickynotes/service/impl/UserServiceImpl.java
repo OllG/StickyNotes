@@ -8,7 +8,6 @@ import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
 import pl.olpinski.stickynotes.dto.NewUserDto;
 import pl.olpinski.stickynotes.dto.UserDto;
-import pl.olpinski.stickynotes.exception.LoginTakenException;
 import pl.olpinski.stickynotes.data.repository.UserRepository;
 import pl.olpinski.stickynotes.service.MailService;
 import pl.olpinski.stickynotes.service.UserService;
