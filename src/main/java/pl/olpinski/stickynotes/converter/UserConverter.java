@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class UserConverter implements Converter <User, UserDto> {
 
-    NoteConverter noteConverter;
+    private NoteConverter noteConverter;
 
     public UserConverter(NoteConverter noteConverter) {
         this.noteConverter = noteConverter;

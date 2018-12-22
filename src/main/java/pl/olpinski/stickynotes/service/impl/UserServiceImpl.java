@@ -14,6 +14,7 @@ import pl.olpinski.stickynotes.repository.UserRepository;
 import pl.olpinski.stickynotes.service.MailService;
 import pl.olpinski.stickynotes.service.UserService;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
@@ -76,6 +77,7 @@ public class UserServiceImpl implements UserService {
     public User registerNewUser(NewUserDto newUserDto) {
 
         //throwing exception with all not valid data
+        //or creating custom validator
         if(userRepository.findOneByLoginIgnoreCase(newUserDto.getLogin()) != null){
             throw new LoginTakenException();
         }
@@ -91,7 +93,9 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));//uzyc konwerter, ale tutaj podmienc plain password na szyfrowane
         newUser.setMail(newUserDto.getMail());
         newUser.setToken(UUID.randomUUID().toString());
-        //
+        //setting time here
+        newUser.setCreationTime(LocalDateTime.now());
+
 
         String activationTitle = messageSource.getMessage("mail.activation.title", new Object[]{
                 newUser.getLogin()}, Locale.getDefault());
