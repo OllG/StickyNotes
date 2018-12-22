@@ -5,14 +5,17 @@
     <title>User</title>
 </head>
 <body>
+    <div style="width: 1200px; text-align: center">
     <h1 th:text="${user.login}">login</h1>
-    <div th:each="note : ${user.notes}" style="width: 300px;height: 300px;border: rebeccapurple;border-style: solid; display: inline-grid; margin: 10px">
+    <div th:each="note : ${user.notes}" style="width: 240px;height: 240px;border: rebeccapurple solid 2px; display: inline-grid; margin: 10px">
         <p style="text-align: center"><a href="" th:href="|/note/${note.id}|" th:text="${note.title}" style="text-align: center">Notka</a></p>
         <p th:text="${note.content}" style="margin: 15px;">Content</p>
         <br/>
     </div>
+
     <br/>
     <a href="/note/new">Nowa notka</a><br/><br/>
     <a href="/logout">Wyloguj</a>
+    </div>
 </body>
 </html>
