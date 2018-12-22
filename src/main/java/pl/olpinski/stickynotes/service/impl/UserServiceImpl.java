@@ -50,10 +50,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findUserByLogin(String login) {
 
-        //konwersja
         User user = userRepository.findOneByLoginIgnoreCase(login);
-        UserDto userDto = userConverter.convert(user);
-        return userDto;
+        return userConverter.convert(user);
     }
 
     @Override
@@ -62,6 +60,7 @@ public class UserServiceImpl implements UserService {
         if(user == null) {
             return false;
         }
+        //if user is not activated, show him message that he needs to confirm his mail
         else if(user.getStatus() != UserStatus.ACTIVATED) {
             System.out.println(user.getStatus());
             return false;

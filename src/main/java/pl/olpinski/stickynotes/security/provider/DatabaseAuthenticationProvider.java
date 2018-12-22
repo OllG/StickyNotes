@@ -29,7 +29,6 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
         if(userService.authenticate(login, password)){
 
-            //Dodawać do sesji userDTO może
             UserDto userDto = userService.findUserByLogin(login);
             Long id = userDto.getId();
 
