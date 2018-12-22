@@ -6,8 +6,10 @@
 </head>
 <body>
     <h1 th:text="${user.login}">login</h1>
-    <div  th:each="note : ${user.notes}">
-        <a href="" th:href="|/note/${note.id}|" th:text="${note.title}">Notka</a>
+    <div th:each="note : ${user.notes}" style="width: 300px;height: 300px;border: rebeccapurple;border-style: solid; display: inline-grid; margin: 10px">
+        <p style="text-align: center"><a href="" th:href="|/note/${note.id}|" th:text="${note.title}" style="text-align: center">Notka</a></p>
+        <p th:text="${note.content}" style="margin: 15px;">Content</p>
+        <br/>
     </div>
     <br/>
     <a href="/note/new">Nowa notka</a><br/><br/>
