@@ -42,9 +42,9 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String registerForm(@RequestParam(required = false) String loginError,@RequestParam(required = false) String mailError, Model model){
+    public String registerForm(NewUserDto newUserDto, Model model, @RequestParam(required = false) String loginError, @RequestParam(required = false) String mailError){
 
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("user", newUserDto);
 
         model.addAttribute("loginError", loginError);
         model.addAttribute("mailError", mailError);
@@ -52,31 +52,18 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Validated NewUserDto newUserDto, BindingResult bindingResult, Model model){
-
-        model.addAttribute("user", newUserDto);
+    public String registerUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, BindingResult bindingResult, Model model){
 
         if (bindingResult.hasErrors()) {
-            return "customers/register";
+            return "register";
         }
-
         try {
             userService.registerNewUser(newUserDto);
         } catch (LoginTakenException e){
-
-            bindingResult.rejectValue("login", "login already taken");
-
-            e.printStackTrace();
-
+            bindingResult.rejectValue("login", "loginTaken", "This login is already taken");
             return "register";
-
-            /*ModelAndView modelAndView = new ModelAndView("redirect:/register");
-            modelAndView.addObject("loginError", "login");
-            return modelAndView;*/
         } catch (MailTakenException e){
-            //e.printStackTrace();
-            ModelAndView modelAndView = new ModelAndView("redirect:/register");
-            modelAndView.addObject("mailError", "mail");
+            bindingResult.rejectValue("mail", "mailTaken", "This e-mail is already registered");
             return "register";
         }
         return "redirect:/notes/";
@@ -85,7 +72,6 @@ public class UserController {
     @GetMapping("/user/activate")
     public ModelAndView activateUser(@RequestParam("login") String login, @RequestParam("token") String token){
         boolean activated = userService.activateUser(login, token);
-
         return new ModelAndView("redirect:/login");
     }
 }

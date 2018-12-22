@@ -23,9 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/user/activate", "user/activate/*", "/h2-console/*", "/h2-console").permitAll()
-                .antMatchers("/user", "/user/new_note")
-                .authenticated()
+                .antMatchers("/login", "/register", "/user/activate", "user/activate/*").permitAll()
+                //.antMatchers("/user", "/user/new_note")
+                //.authenticated()
                 //// other requests
                 .anyRequest().authenticated()
                 .and()
@@ -40,7 +40,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // configure logout
                 .logout()
                 .logoutUrl("/logout")
-                .permitAll();
+                .permitAll()
+                //enable using h2 console
+                .and()
+                .headers()
+                .frameOptions()
+                .disable();
     }
 
     @Autowired
