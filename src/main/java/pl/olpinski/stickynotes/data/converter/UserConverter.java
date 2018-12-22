@@ -1,12 +1,11 @@
-package pl.olpinski.stickynotes.converter;
+package pl.olpinski.stickynotes.data.converter;
 
 import org.springframework.stereotype.Component;
-import pl.olpinski.stickynotes.domain.Note;
-import pl.olpinski.stickynotes.domain.User;
+import pl.olpinski.stickynotes.data.entity.Note;
+import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.dto.UserDto;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 

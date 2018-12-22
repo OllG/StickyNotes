@@ -1,4 +1,4 @@
-package pl.olpinski.stickynotes.converter;
+package pl.olpinski.stickynotes.data.converter;
 
 public interface Converter <O, DTO> {
 

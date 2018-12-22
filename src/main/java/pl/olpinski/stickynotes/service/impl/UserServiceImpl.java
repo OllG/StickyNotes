@@ -3,14 +3,13 @@ package pl.olpinski.stickynotes.service.impl;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-import pl.olpinski.stickynotes.converter.UserConverter;
-import pl.olpinski.stickynotes.domain.User;
-import pl.olpinski.stickynotes.domain.UserStatus;
+import pl.olpinski.stickynotes.data.converter.UserConverter;
+import pl.olpinski.stickynotes.data.entity.User;
+import pl.olpinski.stickynotes.data.entity.UserStatus;
 import pl.olpinski.stickynotes.dto.NewUserDto;
 import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.exception.LoginTakenException;
-import pl.olpinski.stickynotes.exception.MailTakenException;
-import pl.olpinski.stickynotes.repository.UserRepository;
+import pl.olpinski.stickynotes.data.repository.UserRepository;
 import pl.olpinski.stickynotes.service.MailService;
 import pl.olpinski.stickynotes.service.UserService;
 
@@ -76,15 +75,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerNewUser(NewUserDto newUserDto) {
 
-        //throwing exception with all not valid data
-        //or creating custom validator
-        if(userRepository.findOneByLoginIgnoreCase(newUserDto.getLogin()) != null){
-            throw new LoginTakenException();
-        }
-        if(userRepository.findOneByMailIgnoreCase(newUserDto.getMail()) != null){
-            throw new MailTakenException();
-        }
-
         User newUser = new User();
 
         //converter
@@ -118,5 +108,15 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isMailRegistered(String mail){
+        return userRepository.findOneByMailIgnoreCase(mail) != null;
+    }
+
+    @Override
+    public boolean isLoginTaken(String login) {
+        return userRepository.findOneByLoginIgnoreCase(login) != null;
     }
 }

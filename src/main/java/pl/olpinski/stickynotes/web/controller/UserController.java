@@ -1,10 +1,9 @@
-package pl.olpinski.stickynotes.controller;
+package pl.olpinski.stickynotes.web.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.olpinski.stickynotes.dto.NewUserDto;
 import pl.olpinski.stickynotes.dto.UserDto;
-import pl.olpinski.stickynotes.exception.LoginTakenException;
-import pl.olpinski.stickynotes.exception.MailTakenException;
 import pl.olpinski.stickynotes.service.UserService;
 
 import javax.validation.Valid;
@@ -52,21 +49,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, BindingResult bindingResult, Model model){
+    public String registerUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        try {
-            userService.registerNewUser(newUserDto);
-        } catch (LoginTakenException e){
-            bindingResult.rejectValue("login", "loginTaken", "This login is already taken");
-            return "register";
-        } catch (MailTakenException e){
-            bindingResult.rejectValue("mail", "mailTaken", "This e-mail is already registered");
-            return "register";
-        }
-        return "redirect:/notes/";
+        userService.registerNewUser(newUserDto);
+        return "redirect:/login/";
     }
 
     @GetMapping("/user/activate")

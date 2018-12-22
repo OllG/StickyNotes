@@ -1,4 +1,4 @@
-package pl.olpinski.stickynotes.domain;
+package pl.olpinski.stickynotes.data.entity;
 
 public enum UserStatus {
     NEW,ACTIVATED, DISABLED
