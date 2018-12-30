@@ -34,12 +34,20 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginForm(){
+    public String loginForm(Authentication authentication){
+
+        if(authentication != null){
+            return "redirect:/notes/";
+        }
         return "login";
     }
 
     @GetMapping("/register")
-    public String registerForm(NewUserDto newUserDto, Model model){
+    public String registerForm(NewUserDto newUserDto, Model model, Authentication authentication){
+
+        if(authentication != null){
+            return "redirect:/notes";
+        }
 
         model.addAttribute("user", newUserDto);
         return "register";
