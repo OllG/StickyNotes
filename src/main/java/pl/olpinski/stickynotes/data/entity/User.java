@@ -11,19 +11,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String login;
     private String password;
-
-    private LocalDateTime creationTime;
-
-    @Enumerated(EnumType.STRING)
-    private UserStatus status;
-
     private String mail;
     private String firstName;
     private String lastName;
 
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
     private String token;
+    private LocalDateTime creationTime;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Note> notes = new HashSet<>();

@@ -34,7 +34,11 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(
                     id, password, new ArrayList<>());
         }
-        else return null;
+
+        else {
+            System.out.println("Coś nie tak przy logowanio");
+            return null;
+        }
     }
 
     @Override
