@@ -3,6 +3,8 @@ package pl.olpinski.stickynotes.data.converter;
 import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.data.entity.User;
+import pl.olpinski.stickynotes.data.entity.UserStatus;
+import pl.olpinski.stickynotes.dto.NewUserDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.dto.UserDto;
 
@@ -10,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class UserConverter implements Converter <User, UserDto> {
+public class UserConverter {
 
     private NoteConverter noteConverter;
 
@@ -18,7 +20,6 @@ public class UserConverter implements Converter <User, UserDto> {
         this.noteConverter = noteConverter;
     }
 
-    @Override
     public UserDto convert(User object) {
         //in progress
         UserDto userDto = new UserDto();
@@ -38,8 +39,16 @@ public class UserConverter implements Converter <User, UserDto> {
         return userDto;
     }
 
-    @Override
-    public User deconvert(UserDto dtoObject) {
-        return null;
+    public User convertNewUser(NewUserDto newUserDto){
+
+        User user = new User();
+
+        user.setLogin(newUserDto.getLogin());
+        user.setPassword(newUserDto.getPassword());
+        user.setMail(newUserDto.getMail());
+        user.setFirstName(newUserDto.getFirstName());
+        user.setLastName(newUserDto.getLastName());
+
+        return user;
     }
 }

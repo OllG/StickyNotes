@@ -39,12 +39,9 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String registerForm(NewUserDto newUserDto, Model model, @RequestParam(required = false) String loginError, @RequestParam(required = false) String mailError){
+    public String registerForm(NewUserDto newUserDto, Model model){
 
         model.addAttribute("user", newUserDto);
-
-        model.addAttribute("loginError", loginError);
-        model.addAttribute("mailError", mailError);
         return "register";
     }
 

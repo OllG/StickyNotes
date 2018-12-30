@@ -74,27 +74,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerNewUser(NewUserDto newUserDto) {
 
-        User newUser = new User();
+        User user = userConverter.convertNewUser(newUserDto);
 
-        //converter
-        newUser.setStatus(UserStatus.NEW);
-        newUser.setLogin(newUserDto.getLogin());
-        newUser.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));//uzyc konwerter, ale tutaj podmienc plain password na szyfrowane
-        newUser.setMail(newUserDto.getMail());
-        newUser.setToken(UUID.randomUUID().toString());
-        //setting time here
-        newUser.setCreationTime(LocalDateTime.now());
+        user.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));
+        user.setStatus(UserStatus.NEW);
+        user.setToken(UUID.randomUUID().toString());
+        user.setCreationTime(LocalDateTime.now());
 
+        sendConfirmationMail(user);
 
+        return userRepository.save(user);
+    }
+
+    private void sendConfirmationMail(User user){
         String activationTitle = messageSource.getMessage("mail.activation.title", new Object[]{
-                newUser.getLogin()}, Locale.getDefault());
+                user.getFirstName()}, Locale.getDefault());
 
         String mailText = messageSource.getMessage("mail.activation.text", new Object[]{
-                newUser.getLogin(), newUser.getToken()}, Locale.getDefault());
+                user.getLogin(), user.getToken()}, Locale.getDefault());
 
-        mailService.sendConfirmationMail(newUser.getMail(), activationTitle, mailText);
-
-        return userRepository.save(newUser);
+        mailService.sendConfirmationMail(user.getMail(), activationTitle, mailText);
     }
 
     @Override
