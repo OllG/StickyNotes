@@ -1,6 +1,7 @@
 package pl.olpinski.stickynotes.service.impl;
 
 import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import pl.olpinski.stickynotes.data.converter.UserConverter;
@@ -24,13 +25,15 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
     private MailService mailService;
     private MessageSource messageSource;
+    private PasswordEncoder passwordEncoder;
 
 
-    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter, MailService mailService, MessageSource messageSource) {
+    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter, MailService mailService, MessageSource messageSource, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.mailService = mailService;
         this.messageSource = messageSource;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -55,8 +58,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean authenticate(String login, String password) {
-        User user = userRepository.findOneByLoginAndPassword(login, password);
+
+        User user = userRepository.findOneByLoginIgnoreCase(login);
+        boolean passwordMatch = passwordEncoder.matches(password, user.getPassword());
+
         if(user == null) {
+            System.out.println("Nie ma takiego loginu i hasła");
             return false;
         }
         //if user is not activated, show him message that he needs to confirm his mail
@@ -65,18 +72,21 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        else {
+        else if (passwordMatch){
             System.out.println(user.getStatus());
             return true;
         }
+        else return false;
     }
 
     @Override
     public User registerNewUser(NewUserDto newUserDto) {
 
+        System.out.println(passwordEncoder);
+
         User user = userConverter.convertNewUser(newUserDto);
 
-        user.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));
+        user.setPassword(passwordEncoder.encode(newUserDto.getPassword()));
         user.setStatus(UserStatus.NEW);
         user.setToken(UUID.randomUUID().toString());
         user.setCreationTime(LocalDateTime.now());
