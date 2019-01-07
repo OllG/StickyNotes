@@ -1,8 +1,8 @@
 package pl.olpinski.stickynotes.service.impl;
 
 import org.springframework.context.MessageSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 import pl.olpinski.stickynotes.data.converter.UserConverter;
 import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
@@ -24,13 +24,15 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
     private MailService mailService;
     private MessageSource messageSource;
+    private PasswordEncoder passwordEncoder;
 
 
-    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter, MailService mailService, MessageSource messageSource) {
+    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter, MailService mailService, MessageSource messageSource, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
         this.mailService = mailService;
         this.messageSource = messageSource;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -55,20 +57,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean authenticate(String login, String password) {
-        User user = userRepository.findOneByLoginAndPassword(login, password);
-        if(user == null) {
+
+        User user = userRepository.findOneByLoginIgnoreCase(login);
+
+        if(user == null){
             return false;
         }
-        //if user is not activated, show him message that he needs to confirm his mail
         else if(user.getStatus() != UserStatus.ACTIVATED) {
             System.out.println(user.getStatus());
             return false;
         }
-
-        else {
+        else if (passwordEncoder.matches(password, user.getPassword())){
             System.out.println(user.getStatus());
             return true;
         }
+        else return false;
     }
 
     @Override
@@ -76,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userConverter.convertNewUser(newUserDto);
 
-        user.setPassword(DigestUtils.md5DigestAsHex(newUserDto.getPassword().getBytes()));
+        user.setPassword(passwordEncoder.encode(newUserDto.getPassword()));
         user.setStatus(UserStatus.NEW);
         user.setToken(UUID.randomUUID().toString());
         user.setCreationTime(LocalDateTime.now());
@@ -84,16 +87,6 @@ public class UserServiceImpl implements UserService {
         sendConfirmationMail(user);
 
         return userRepository.save(user);
-    }
-
-    private void sendConfirmationMail(User user){
-        String activationTitle = messageSource.getMessage("mail.activation.title", new Object[]{
-                user.getFirstName()}, Locale.getDefault());
-
-        String mailText = messageSource.getMessage("mail.activation.text", new Object[]{
-                user.getLogin(), user.getToken()}, Locale.getDefault());
-
-        mailService.sendConfirmationMail(user.getMail(), activationTitle, mailText);
     }
 
     @Override
@@ -107,6 +100,17 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    private void sendConfirmationMail(User user){
+        String activationTitle = messageSource.getMessage("mail.activation.title", new Object[]{
+                user.getFirstName()}, Locale.getDefault());
+
+        String mailText = messageSource.getMessage("mail.activation.text", new Object[]{
+                user.getLogin(), user.getToken()}, Locale.getDefault());
+
+        mailService.sendConfirmationMail(user.getMail(), activationTitle, mailText);
+    }
+
 
     @Override
     public boolean isMailRegistered(String mail){

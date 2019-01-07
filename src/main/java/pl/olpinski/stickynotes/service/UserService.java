@@ -13,6 +13,7 @@ public interface UserService {
 
     User registerNewUser (NewUserDto newUserDto);
     boolean activateUser(String login, String token);
+
     boolean isMailRegistered(String mail);
     boolean isLoginTaken(String login);
 

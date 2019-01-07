@@ -4,8 +4,8 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.DigestUtils;
 import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.service.UserService;
 
@@ -15,16 +15,22 @@ import java.util.ArrayList;
 public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
-    public DatabaseAuthenticationProvider(UserService userService) {
+    public DatabaseAuthenticationProvider(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
+        System.out.println(passwordEncoder);
+
         String login = authentication.getName();
-        String password = DigestUtils.md5DigestAsHex(authentication.getCredentials().toString().getBytes());
+        String password = authentication.getCredentials().toString();
+
+        System.out.println(authentication.getCredentials());
 
         if(userService.authenticate(login, password)){
 
@@ -36,7 +42,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         }
 
         else {
-            System.out.println("Coś nie tak przy logowanio");
+            System.out.println("Error while logging");
             return null;
         }
     }

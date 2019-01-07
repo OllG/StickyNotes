@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.olpinski.stickynotes.web.security.provider.DatabaseAuthenticationProvider;
 
 @Configuration
@@ -24,9 +25,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/login", "/register", "/user/activate", "/user/activate/*", "/h2-console", "/h2-console/*").permitAll()
-                //.antMatchers("/user", "/user/new_note")
-                //.authenticated()
-                //// other requests
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -53,4 +51,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider);
 
     }
+
 }
