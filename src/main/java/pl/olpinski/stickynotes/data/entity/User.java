@@ -13,7 +13,7 @@ public class User {
     private Long id;
     private String login;
 
-    @Column(length = 65)
+    @Column(length = 60)
     private String password;
     private String mail;
     private String firstName;

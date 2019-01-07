@@ -31,8 +31,6 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         System.out.println(authentication.getCredentials());
-        //System.out.println(passwordEncoder.encode(authentication.getCredentials().toString()));
-        //System.out.println(passwordEncoder.encode(authentication.getCredentials().toString()));
 
         if(userService.authenticate(login, password)){
 
@@ -44,7 +42,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         }
 
         else {
-            System.out.println("Coś nie tak przy logowaniu");
+            System.out.println("Error while logging");
             return null;
         }
     }
