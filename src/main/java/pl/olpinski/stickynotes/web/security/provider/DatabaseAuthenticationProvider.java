@@ -1,13 +1,17 @@
 package pl.olpinski.stickynotes.web.security.provider;
 
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.olpinski.stickynotes.data.entity.UserStatus;
 import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.service.UserService;
+import pl.olpinski.stickynotes.web.exceptions.DisabledUserException;
+import pl.olpinski.stickynotes.web.exceptions.NotActivatedUserException;
 
 import java.util.ArrayList;
 
@@ -15,35 +19,35 @@ import java.util.ArrayList;
 public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
     private UserService userService;
-    private PasswordEncoder passwordEncoder;
 
     public DatabaseAuthenticationProvider(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        System.out.println(passwordEncoder);
-
         String login = authentication.getName();
         String password = authentication.getCredentials().toString();
-
-        System.out.println(authentication.getCredentials());
 
         if(userService.authenticate(login, password)){
 
             UserDto userDto = userService.findUserByLogin(login);
             Long id = userDto.getId();
-
-            return new UsernamePasswordAuthenticationToken(
-                    id, password, new ArrayList<>());
-        }
-
-        else {
+            if(userService.checkStatus(id).equals(UserStatus.NEW)){
+                throw new NotActivatedUserException("not activated user");
+            } else if (userService.checkStatus(id).equals(UserStatus.DISABLED)){
+                throw new DisabledUserException("disabled user");
+            }
+            //Success
+            else {
+                return new UsernamePasswordAuthenticationToken(
+                        id, password, new ArrayList<>());
+            }
+        } else {
             System.out.println("Error while logging");
-            return null;
+            throw new BadCredentialsException("bad credentials");
+            //return null;
         }
     }
 

@@ -63,10 +63,7 @@ public class UserServiceImpl implements UserService {
         if(user == null){
             return false;
         }
-        else if(user.getStatus() != UserStatus.ACTIVATED) {
-            System.out.println(user.getStatus());
-            return false;
-        }
+
         else if (passwordEncoder.matches(password, user.getPassword())){
             System.out.println(user.getStatus());
             return true;
@@ -111,6 +108,14 @@ public class UserServiceImpl implements UserService {
         mailService.sendConfirmationMail(user.getMail(), activationTitle, mailText);
     }
 
+    @Override
+    public UserStatus checkStatus(Long id) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if(!userOpt.isPresent()){
+            return null;
+        }
+        return userOpt.get().getStatus();
+    }
 
     @Override
     public boolean isMailRegistered(String mail){

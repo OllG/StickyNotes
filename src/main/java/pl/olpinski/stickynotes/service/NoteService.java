@@ -8,7 +8,7 @@ public interface NoteService {
 
     NoteDto getNoteById(Long id);
 
-    Note saveNote(NewNoteDto newNoteDto);
+    Note createNote(NewNoteDto newNoteDto);
 
     Note editNote(NoteDto noteDto);
 }

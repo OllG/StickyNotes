@@ -1,6 +1,7 @@
 package pl.olpinski.stickynotes.data.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Note {
@@ -16,6 +17,7 @@ public class Note {
 
     @Column(length = 240)
     private String content;
+    private LocalDateTime creationTime;
 
     public Long getId() {
         return id;
@@ -47,5 +49,13 @@ public class Note {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
     }
 }

@@ -10,6 +10,7 @@ import pl.olpinski.stickynotes.dto.NoteDto;
 import pl.olpinski.stickynotes.data.repository.NoteRepository;
 import pl.olpinski.stickynotes.service.NoteService;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -35,8 +36,9 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note saveNote(NewNoteDto noteDto) {
+    public Note createNote(NewNoteDto noteDto) {
         Note note = noteConverter.createNewNoteConversion(noteDto);
+        note.setCreationTime(LocalDateTime.now());
         return noteRepository.save(note);
     }
 

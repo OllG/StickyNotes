@@ -2,11 +2,14 @@ package pl.olpinski.stickynotes.web.security.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.olpinski.stickynotes.web.exceptions.DisabledUserException;
+import pl.olpinski.stickynotes.web.exceptions.NotActivatedUserException;
 import pl.olpinski.stickynotes.web.security.provider.DatabaseAuthenticationProvider;
 
 @Configuration
@@ -33,6 +36,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/notes/")
+                .failureHandler((request, response, exception) -> {
+                    String errMsg ="";
+                    if(exception.getClass().isAssignableFrom(BadCredentialsException.class)){
+                        errMsg="Invalid username or password.";
+                    } else if(exception.getClass().isAssignableFrom(NotActivatedUserException.class)){
+                        errMsg="This user is not activated yet, please confirm your mail.";
+                    } else if(exception.getClass().isAssignableFrom(DisabledUserException.class)){
+                        errMsg="This user is disabled, contact administration for help.";
+                    } else{
+                        errMsg="Unknown error - " + exception.getMessage();
+                    }
+                    request.getSession().setAttribute("message", errMsg);
+                    response.sendRedirect("/login");
+                    })
                 .permitAll()
                 .and()
                 // configure logout

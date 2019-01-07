@@ -54,7 +54,7 @@ public class NoteController {
 
         Long userId = (Long) authentication.getPrincipal();
         newNoteDto.setUserId(userId);
-        Note savedNote = noteService.saveNote(newNoteDto);
+        Note savedNote = noteService.createNote(newNoteDto);
 
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }

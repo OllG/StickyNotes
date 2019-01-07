@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -10,6 +10,12 @@
         <input type="text" name="login"/><br/>
         <input type="password" name="password"/><br/>
         <input type="submit" value="Log in"><br/>
+
+        <div th:if="${#session != null}">
+            <p th:text="${#session.getAttribute('message')}">
+                aaa
+            </p>
+        </div>
     </form>
 </body>
 </html>
