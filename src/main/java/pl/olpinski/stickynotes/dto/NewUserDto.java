@@ -15,6 +15,7 @@ public class NewUserDto {
     //confirmation password
     @Size(min=6, message = "Password must have at least 6 characters")
     private String password;
+    private String confPassword;
 
     @Email
     @UniqueMail
@@ -26,9 +27,10 @@ public class NewUserDto {
     @Size(min = 3, max = 30, message = "Last name should contain between 3 and 30 characters")
     private String lastName;
 
-    public NewUserDto(String login, String password, String mail, String firstName, String lastName) {
+    public NewUserDto(String login, String password, String confPassword, String mail, String firstName, String lastName) {
         this.login = login;
         this.password = password;
+        this.confPassword = confPassword;
         this.mail = mail;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,6 +42,10 @@ public class NewUserDto {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getConfPassword() {
+        return confPassword;
     }
 
     public String getMail() {

@@ -4,14 +4,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.olpinski.stickynotes.dto.NewUserDto;
 import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.service.UserService;
+import pl.olpinski.stickynotes.validation.NewUserDtoValidator;
 
 import javax.validation.Valid;
 
@@ -19,19 +18,20 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserService userService;
+    private NewUserDtoValidator newUserDtoValidator;
 
-    public UserController(UserService userService) {
+
+
+    public UserController(UserService userService, NewUserDtoValidator newUserDtoValidator) {
         this.userService = userService;
+        this.newUserDtoValidator = newUserDtoValidator;
     }
 
-    @GetMapping({"/notes", "", "/"})
-    public String user(Model model, Authentication authentication){
-
-        Long id = (Long) authentication.getPrincipal();
-        UserDto userDto = userService.findUserById(id);
-        model.addAttribute("user", userDto);
-        return "notes";
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(newUserDtoValidator);
     }
+
 
     @GetMapping("/login")
     public String loginForm(Authentication authentication){

@@ -27,6 +27,14 @@
                 </tr>
 
                 <tr>
+                    <td>Confirm Password:</td>
+                    <td><input type="password" th:field="*{confPassword}" name="confPpassword" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td><td th:if="${#fields.hasErrors('confPassword')}" th:errors="*{confPassword}">Password does not match error message</td>
+                </tr>
+
+                <tr>
                     <td>E-mail:</td>
                     <td><input type="text" th:field="*{mail}" name="mail" class="form-control"></td>
                 </tr>

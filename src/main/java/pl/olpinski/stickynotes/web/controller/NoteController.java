@@ -8,16 +8,30 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.dto.NewNoteDto;
 import pl.olpinski.stickynotes.dto.NoteDto;
+import pl.olpinski.stickynotes.dto.UserDto;
 import pl.olpinski.stickynotes.service.NoteService;
+import pl.olpinski.stickynotes.service.UserService;
 
 @Controller
 @RequestMapping("/note")
 public class NoteController {
 
     private NoteService noteService;
+    private UserService userService;
 
-    public NoteController(NoteService noteService) {
+    public NoteController(NoteService noteService, UserService userService) {
         this.noteService = noteService;
+        this.userService = userService;
+    }
+
+
+    @GetMapping({"/notes", "", "/"})
+    public String user(Model model, Authentication authentication){
+
+        Long id = (Long) authentication.getPrincipal();
+        UserDto userDto = userService.findUserById(id);
+        model.addAttribute("user", userDto);
+        return "notes";
     }
 
     @GetMapping("/{id}")
