@@ -67,6 +67,20 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findOneByLoginIgnoreCase(login);
         return userConverter.convert(user);
     }
+    @Override
+    public User findUserByMail(String mail){
+        User user = userRepository.findOneByMailIgnoreCase(mail);
+        return user;
+    }
+
+    @Override
+    public void resetPasswordAttempt(String mail){
+        User user = userRepository.findOneByMailIgnoreCase(mail);
+        //to change
+        user.setToken(UUID.randomUUID().toString());
+        userRepository.save(user);
+        sendPasswordResetConfirmation(user);
+    }
 
     @Override
     public boolean authenticate(String login, String password) {
@@ -119,6 +133,24 @@ public class UserServiceImpl implements UserService {
                 user.getLogin(), user.getToken()}, Locale.getDefault());
 
         mailService.sendConfirmationMail(user.getMail(), activationTitle, mailText);
+    }
+
+    private void sendPasswordResetConfirmation(User user){
+        String title = "Resetting password for account " + user.getLogin();
+        String text = "http://localhost:8080/new-password?login=" + user.getLogin() + "&token=" + user.getToken();
+        mailService.sendConfirmationMail(user.getMail(), title, text);
+    }
+
+    @Override
+    public boolean changeUserPassword(String login, String token, String password) {
+        User user = userRepository.findOneByLoginAndToken(login, token);
+        if(user == null){
+            return false;
+        }
+
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        return true;
     }
 
     @Override

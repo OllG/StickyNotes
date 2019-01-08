@@ -13,6 +13,12 @@ public interface UserService {
     UserDetailsDto getDetails(Long id);
     UserDto findUserByLogin(String login);
 
+    boolean changeUserPassword(String login, String token, String password);
+
+    //new dto?
+    User findUserByMail(String mail);
+    void resetPasswordAttempt(String mail);
+
     boolean authenticate(String login, String password);
     UserStatus checkStatus(Long id);
 
