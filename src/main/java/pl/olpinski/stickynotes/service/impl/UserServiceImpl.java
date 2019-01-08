@@ -4,6 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.olpinski.stickynotes.data.converter.UserConverter;
+import pl.olpinski.stickynotes.data.dto.UserDetailsDto;
 import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
 import pl.olpinski.stickynotes.data.dto.NewUserDto;
@@ -46,6 +47,18 @@ public class UserServiceImpl implements UserService {
         }
 
         throw new RuntimeException("metoda findUserById() w klasie UserServiceImpl dostała nieprawidlowe id.");
+    }
+
+    @Override
+    public UserDetailsDto getDetails(Long id){
+        Optional<User> optUser = userRepository.findById(id);
+
+        if(optUser.isPresent()){
+            UserDetailsDto user = userConverter.getDetails(optUser.get());
+            return user;
+        }
+
+        throw new RuntimeException("Method getDetails() recieved bad argument id");
     }
 
     @Override
