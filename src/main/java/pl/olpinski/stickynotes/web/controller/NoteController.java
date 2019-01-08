@@ -6,19 +6,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.olpinski.stickynotes.data.entity.Note;
-import pl.olpinski.stickynotes.dto.NewNoteDto;
-import pl.olpinski.stickynotes.dto.NoteDto;
+import pl.olpinski.stickynotes.data.dto.NewNoteDto;
+import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.service.NoteService;
+import pl.olpinski.stickynotes.service.UserService;
 
 @Controller
 @RequestMapping("/note")
 public class NoteController {
 
     private NoteService noteService;
+    private UserService userService;
 
-    public NoteController(NoteService noteService) {
+    public NoteController(NoteService noteService, UserService userService) {
         this.noteService = noteService;
+        this.userService = userService;
     }
+
+
 
     @GetMapping("/{id}")
     public String note(@PathVariable Long id, Model model){

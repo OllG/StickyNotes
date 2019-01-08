@@ -1,4 +1,4 @@
-package pl.olpinski.stickynotes.validation;
+package pl.olpinski.stickynotes.web.validation;
 
 import pl.olpinski.stickynotes.service.UserService;
 

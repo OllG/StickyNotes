@@ -1,15 +1,15 @@
-package pl.olpinski.stickynotes.validation;
+package pl.olpinski.stickynotes.web.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = UniqueMailValidator.class)
+@Constraint(validatedBy = UniqueLoginValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueMail {
-    String message() default "This mail is already registered";
+public @interface UniqueLogin {
+    String message() default "This login is already taken";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -8,7 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
-import pl.olpinski.stickynotes.dto.UserDto;
+import pl.olpinski.stickynotes.data.dto.UserDto;
 import pl.olpinski.stickynotes.service.UserService;
 import pl.olpinski.stickynotes.web.exceptions.DisabledUserException;
 import pl.olpinski.stickynotes.web.exceptions.NotActivatedUserException;
