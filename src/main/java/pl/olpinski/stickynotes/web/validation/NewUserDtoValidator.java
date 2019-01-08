@@ -16,7 +16,7 @@ public class NewUserDtoValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         NewUserDto newUserDto = (NewUserDto) target;
-        if(!newUserDto.getPassword().equalsIgnoreCase(newUserDto.getConfPassword())){
+        if(!newUserDto.getPassword().equals(newUserDto.getConfPassword())){
             errors.rejectValue("confPassword", "password.notMatch");
         }
     }

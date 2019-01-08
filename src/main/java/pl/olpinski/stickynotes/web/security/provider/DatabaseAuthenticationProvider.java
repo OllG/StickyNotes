@@ -20,7 +20,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
     private UserService userService;
 
-    public DatabaseAuthenticationProvider(UserService userService, PasswordEncoder passwordEncoder) {
+    public DatabaseAuthenticationProvider(UserService userService) {
         this.userService = userService;
     }
 
