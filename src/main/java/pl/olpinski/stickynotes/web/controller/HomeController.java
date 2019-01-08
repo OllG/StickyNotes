@@ -17,6 +17,7 @@ public class HomeController {
     }
 
     @GetMapping({"/notes", "", "/"})
+    // nazwa metody user niewiele mowi
     public String user(Model model, Authentication authentication){
 
         Long id = (Long) authentication.getPrincipal();

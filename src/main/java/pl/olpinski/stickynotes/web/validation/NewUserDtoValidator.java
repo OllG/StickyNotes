@@ -16,6 +16,7 @@ public class NewUserDtoValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         NewUserDto newUserDto = (NewUserDto) target;
+        // zasada Demeter 1 kropki
         if(!newUserDto.getPassword().equalsIgnoreCase(newUserDto.getConfPassword())){
             errors.rejectValue("confPassword", "password.notMatch");
         }

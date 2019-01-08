@@ -38,6 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/notes/")
                 .failureHandler((request, response, exception) -> {
                     String errMsg ="";
+                    // a moze wstrzyknac messageProperties zeby moc pobierac komunikaty z pliku
+                    // a moze ten fragment kodu wydzielic do jakiejs lokalniej metody bedzie bardziej czytelnie
                     if(exception.getClass().isAssignableFrom(BadCredentialsException.class)){
                         errMsg="Invalid username or password.";
                     } else if(exception.getClass().isAssignableFrom(NotActivatedUserException.class)){

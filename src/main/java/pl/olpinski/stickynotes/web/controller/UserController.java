@@ -30,18 +30,19 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginForm(Authentication authentication){
+    public String loginForm(Authentication authentication) {
 
-        if(authentication != null){
+        if (authentication != null) {
             return "redirect:/notes/";
         }
         return "login";
     }
 
     @GetMapping("/register")
-    public String registerForm(NewUserDto newUserDto, Model model, Authentication authentication){
+    // NewUserDto zamieniłbym na UserDto
+    public String registerForm(NewUserDto newUserDto, Model model, Authentication authentication) {
 
-        if(authentication != null){
+        if (authentication != null) {
             return "redirect:/notes";
         }
 
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, BindingResult bindingResult){
+    public String registerUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "register";
@@ -60,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping("/user/activate")
-    public ModelAndView activateUser(@RequestParam("login") String login, @RequestParam("token") String token){
+    public ModelAndView activateUser(@RequestParam("login") String login, @RequestParam("token") String token) {
         boolean activated = userService.activateUser(login, token);
         return new ModelAndView("redirect:/login");
     }

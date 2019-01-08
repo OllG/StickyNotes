@@ -30,10 +30,16 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         String login = authentication.getName();
         String password = authentication.getCredentials().toString();
 
+
+        // przydalby sie reformat code (Ctrl + alt + L)
         if(userService.authenticate(login, password)){
 
             UserDto userDto = userService.findUserByLogin(login);
             Long id = userDto.getId();
+
+            // zasada Demeter mowi by starac sie miec jedna kropke w linijce by kod byl bardziej
+            // czytelny moze wystarczyloby zrobic metode userService.getStatus() i przypisywac do zmiennej
+            // a potem ja porownywac, tutaj mozna zrobic switc
             if(userService.checkStatus(id).equals(UserStatus.NEW)){
                 throw new NotActivatedUserException("not activated user");
             } else if (userService.checkStatus(id).equals(UserStatus.DISABLED)){
@@ -45,6 +51,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
                         id, password, new ArrayList<>());
             }
         } else {
+            // system.out.println na loggera zastapic
             System.out.println("Error while logging");
             throw new BadCredentialsException("bad credentials");
             //return null;
