@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import pl.olpinski.stickynotes.data.dto.NewUserDto;
+import pl.olpinski.stickynotes.data.dto.UserCreationDto;
 import pl.olpinski.stickynotes.service.UserService;
 import pl.olpinski.stickynotes.web.validation.NewUserDtoValidator;
 
@@ -30,23 +30,23 @@ public class RegistrationController {
     }
 
     @GetMapping("/register")
-    public String registerForm(NewUserDto newUserDto, Model model, Authentication authentication){
+    public String registerForm(UserCreationDto userCreationDto, Model model, Authentication authentication){
 
         if(authentication != null){
             return "redirect:/notes";
         }
 
-        model.addAttribute("user", newUserDto);
+        model.addAttribute("user", userCreationDto);
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid NewUserDto newUserDto, BindingResult bindingResult){
+    public String registerUser(@ModelAttribute("user") @Valid UserCreationDto userCreationDto, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        userService.registerNewUser(newUserDto);
+        userService.registerNewUser(userCreationDto);
         return "redirect:/login/";
     }
 

@@ -7,7 +7,7 @@ import pl.olpinski.stickynotes.data.converter.UserConverter;
 import pl.olpinski.stickynotes.data.dto.UserDetailsDto;
 import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
-import pl.olpinski.stickynotes.data.dto.NewUserDto;
+import pl.olpinski.stickynotes.data.dto.UserCreationDto;
 import pl.olpinski.stickynotes.data.dto.UserDto;
 import pl.olpinski.stickynotes.data.repository.UserRepository;
 import pl.olpinski.stickynotes.service.MailService;
@@ -85,11 +85,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User registerNewUser(NewUserDto newUserDto) {
+    public User registerNewUser(UserCreationDto userCreationDto) {
 
-        User user = userConverter.convertNewUser(newUserDto);
+        User user = userConverter.convertNewUser(userCreationDto);
 
-        user.setPassword(passwordEncoder.encode(newUserDto.getPassword()));
+        user.setPassword(passwordEncoder.encode(userCreationDto.getPassword()));
         user.setStatus(UserStatus.NEW);
         user.setToken(UUID.randomUUID().toString());
         user.setCreationTime(LocalDateTime.now());

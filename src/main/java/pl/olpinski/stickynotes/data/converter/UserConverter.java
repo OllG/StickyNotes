@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.data.dto.UserDetailsDto;
 import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.data.entity.User;
-import pl.olpinski.stickynotes.data.dto.NewUserDto;
+import pl.olpinski.stickynotes.data.dto.UserCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.dto.UserDto;
 
@@ -53,15 +53,15 @@ public class UserConverter {
         return userDetailsDto;
     }
 
-    public User convertNewUser(NewUserDto newUserDto){
+    public User convertNewUser(UserCreationDto userCreationDto){
 
         User user = new User();
 
-        user.setLogin(newUserDto.getLogin());
-        user.setPassword(newUserDto.getPassword());
-        user.setMail(newUserDto.getMail());
-        user.setFirstName(newUserDto.getFirstName());
-        user.setLastName(newUserDto.getLastName());
+        user.setLogin(userCreationDto.getLogin());
+        user.setPassword(userCreationDto.getPassword());
+        user.setMail(userCreationDto.getMail());
+        user.setFirstName(userCreationDto.getFirstName());
+        user.setLastName(userCreationDto.getLastName());
 
         return user;
     }

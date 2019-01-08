@@ -1,13 +1,14 @@
 package pl.olpinski.stickynotes.data.dto;
 
+import java.time.LocalDateTime;
+
 public class NoteDto {
 
     private Long id;
     private Long userId;
     private String title;
     private String content;
-
-
+    private LocalDateTime creationTime;
 
     public Long getId() {
         return id;
@@ -39,5 +40,13 @@ public class NoteDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(LocalDateTime creationTime) {
+        this.creationTime = creationTime;
     }
 }

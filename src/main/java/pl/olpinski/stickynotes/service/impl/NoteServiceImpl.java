@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.olpinski.stickynotes.data.converter.NoteConverter;
 import pl.olpinski.stickynotes.data.entity.Note;
-import pl.olpinski.stickynotes.data.dto.NewNoteDto;
+import pl.olpinski.stickynotes.data.dto.NoteCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.repository.NoteRepository;
 import pl.olpinski.stickynotes.service.NoteService;
@@ -36,7 +36,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note createNote(NewNoteDto noteDto) {
+    public Note createNote(NoteCreationDto noteDto) {
         Note note = noteConverter.createNewNoteConversion(noteDto);
         note.setCreationTime(LocalDateTime.now());
         return noteRepository.save(note);

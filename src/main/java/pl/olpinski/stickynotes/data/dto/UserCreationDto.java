@@ -6,7 +6,7 @@ import pl.olpinski.stickynotes.web.validation.UniqueMail;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
-public class NewUserDto {
+public class UserCreationDto {
 
     @UniqueLogin
     @Size(min=3, max=30, message = "Login must contain between 3 and 30 characters")
@@ -27,7 +27,7 @@ public class NewUserDto {
     @Size(min = 3, max = 30, message = "Last name should contain between 3 and 30 characters")
     private String lastName;
 
-    public NewUserDto(String login, String password, String confPassword, String mail, String firstName, String lastName) {
+    public UserCreationDto(String login, String password, String confPassword, String mail, String firstName, String lastName) {
         this.login = login;
         this.password = password;
         this.confPassword = confPassword;

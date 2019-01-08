@@ -3,10 +3,11 @@ package pl.olpinski.stickynotes.data.converter;
 import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.data.entity.User;
-import pl.olpinski.stickynotes.data.dto.NewNoteDto;
+import pl.olpinski.stickynotes.data.dto.NoteCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -25,25 +26,27 @@ public class NoteConverter{
         Long userId = object.getUser().getId();
         String title = object.getTitle();
         String content = object.getContent();
+        LocalDateTime creationTime = object.getCreationTime();
 
         NoteDto noteDto = new NoteDto();
         noteDto.setId(id);
         noteDto.setUserId(userId);
         noteDto.setTitle(title);
         noteDto.setContent(content);
+        noteDto.setCreationTime(creationTime);
 
         return noteDto;
     }
 
 
-    public Note createNewNoteConversion(NewNoteDto newNoteDto) {
+    public Note createNewNoteConversion(NoteCreationDto noteCreationDto) {
 
         Note note = new Note();
-        note.setTitle(newNoteDto.getTitle());
-        note.setContent(newNoteDto.getContent());
+        note.setTitle(noteCreationDto.getTitle());
+        note.setContent(noteCreationDto.getContent());
 
-        if(userRepository.findById(newNoteDto.getUserId()).isPresent()) {
-            note.setUser(userRepository.findById(newNoteDto.getUserId()).get());
+        if(userRepository.findById(noteCreationDto.getUserId()).isPresent()) {
+            note.setUser(userRepository.findById(noteCreationDto.getUserId()).get());
             return note;
         }
 
@@ -60,9 +63,9 @@ public class NoteConverter{
             throw new RuntimeException("Nie można znaleźć użytkownika");
         }
         note.setUser(user.get());
-
         note.setTitle(noteDto.getTitle());
         note.setContent(noteDto.getContent());
+        note.setCreationTime(noteDto.getCreationTime());
         return note;
     }
 }

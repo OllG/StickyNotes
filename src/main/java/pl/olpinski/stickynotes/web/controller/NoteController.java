@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.olpinski.stickynotes.data.entity.Note;
-import pl.olpinski.stickynotes.data.dto.NewNoteDto;
+import pl.olpinski.stickynotes.data.dto.NoteCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.service.NoteService;
 import pl.olpinski.stickynotes.service.UserService;
@@ -55,11 +55,11 @@ public class NoteController {
     }
 
     @PostMapping("/new")
-    public ModelAndView addNewNote(Model model, NewNoteDto newNoteDto, Authentication authentication){
+    public ModelAndView addNewNote(Model model, NoteCreationDto noteCreationDto, Authentication authentication){
 
         Long userId = (Long) authentication.getPrincipal();
-        newNoteDto.setUserId(userId);
-        Note savedNote = noteService.createNote(newNoteDto);
+        noteCreationDto.setUserId(userId);
+        Note savedNote = noteService.createNote(noteCreationDto);
 
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }

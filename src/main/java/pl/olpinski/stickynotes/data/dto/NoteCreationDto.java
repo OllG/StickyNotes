@@ -1,12 +1,12 @@
 package pl.olpinski.stickynotes.data.dto;
 
-public class NewNoteDto {
+public class NoteCreationDto {
 
     private Long userId;
     private String title;
     private String content;
 
-    public NewNoteDto(Long userId, String title, String content) {
+    public NoteCreationDto(Long userId, String title, String content) {
         this.userId = userId;
         this.title = title;
         this.content = content;
