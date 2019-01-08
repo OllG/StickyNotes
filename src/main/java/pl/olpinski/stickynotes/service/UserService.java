@@ -1,6 +1,7 @@
 package pl.olpinski.stickynotes.service;
 
 
+import pl.olpinski.stickynotes.data.dto.PasswordResetDto;
 import pl.olpinski.stickynotes.data.dto.UserDetailsDto;
 import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
@@ -14,6 +15,8 @@ public interface UserService {
     UserDto findUserByLogin(String login);
 
     boolean changeUserPassword(String login, String token, String password);
+
+    PasswordResetDto resetPasswordDto(String mail);
 
     //new dto?
     User findUserByMail(String mail);

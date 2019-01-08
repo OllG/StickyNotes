@@ -4,6 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.olpinski.stickynotes.data.converter.UserConverter;
+import pl.olpinski.stickynotes.data.dto.PasswordResetDto;
 import pl.olpinski.stickynotes.data.dto.UserDetailsDto;
 import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
@@ -133,6 +134,16 @@ public class UserServiceImpl implements UserService {
                 user.getLogin(), user.getToken()}, Locale.getDefault());
 
         mailService.sendConfirmationMail(user.getMail(), activationTitle, mailText);
+    }
+
+    @Override
+    public PasswordResetDto resetPasswordDto(String login) {
+        User user = userRepository.findOneByLoginIgnoreCase(login);
+        PasswordResetDto passwordResetDto = new PasswordResetDto();
+        passwordResetDto.setLogin(user.getLogin());
+        passwordResetDto.setMail(user.getMail());
+        passwordResetDto.setToken(user.getToken());
+        return passwordResetDto;
     }
 
     private void sendPasswordResetConfirmation(User user){

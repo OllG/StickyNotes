@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.olpinski.stickynotes.data.dto.PasswordResetDto;
 import pl.olpinski.stickynotes.data.dto.UserDetailsDto;
 import pl.olpinski.stickynotes.data.dto.UserDto;
 import pl.olpinski.stickynotes.data.entity.User;
@@ -56,8 +57,7 @@ public class UserController {
 
     @GetMapping("new-password")
     public String resettingPassword(@RequestParam("login") String login, @RequestParam("token") String token, Model model){
-        String mail = userService.findUserByLogin(login).getMail();
-        User user = userService.findUserByMail(mail);
+        PasswordResetDto user = userService.resetPasswordDto(login);
 
         if(token.equals(user.getToken())){
             model.addAttribute("login", login);
@@ -69,8 +69,8 @@ public class UserController {
 
     @PostMapping("new-password")
     public String settingNewPassword(@RequestParam("token") String token, @RequestParam("login") String login, @RequestParam("password") String password){
-        String mail = userService.findUserByLogin(login).getMail();
-        User user = userService.findUserByMail(mail);
+
+        PasswordResetDto user = userService.resetPasswordDto(login);
 
         if(token.equals(user.getToken())){
 
