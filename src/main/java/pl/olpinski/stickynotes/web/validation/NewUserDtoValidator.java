@@ -1,9 +1,9 @@
-package pl.olpinski.stickynotes.validation;
+package pl.olpinski.stickynotes.web.validation;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import pl.olpinski.stickynotes.dto.NewUserDto;
+import pl.olpinski.stickynotes.data.dto.NewUserDto;
 
 @Component
 public class NewUserDtoValidator implements Validator {

@@ -3,8 +3,8 @@ package pl.olpinski.stickynotes.data.converter;
 import org.springframework.stereotype.Component;
 import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.data.entity.User;
-import pl.olpinski.stickynotes.dto.NewNoteDto;
-import pl.olpinski.stickynotes.dto.NoteDto;
+import pl.olpinski.stickynotes.data.dto.NewNoteDto;
+import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.repository.UserRepository;
 
 import java.util.Optional;

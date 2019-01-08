@@ -10,6 +10,7 @@ public class MailServiceImpl implements MailService {
 
     private JavaMailSender javaMailSender;
 
+
     public MailServiceImpl(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }

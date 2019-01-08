@@ -7,10 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import pl.olpinski.stickynotes.dto.NewUserDto;
-import pl.olpinski.stickynotes.dto.UserDto;
+import pl.olpinski.stickynotes.data.dto.NewUserDto;
 import pl.olpinski.stickynotes.service.UserService;
-import pl.olpinski.stickynotes.validation.NewUserDtoValidator;
+import pl.olpinski.stickynotes.web.validation.NewUserDtoValidator;
 
 import javax.validation.Valid;
 
@@ -19,8 +18,6 @@ public class UserController {
 
     private UserService userService;
     private NewUserDtoValidator newUserDtoValidator;
-
-
 
     public UserController(UserService userService, NewUserDtoValidator newUserDtoValidator) {
         this.userService = userService;
@@ -31,7 +28,6 @@ public class UserController {
     protected void initBinder(WebDataBinder binder) {
         binder.addValidators(newUserDtoValidator);
     }
-
 
     @GetMapping("/login")
     public String loginForm(Authentication authentication){

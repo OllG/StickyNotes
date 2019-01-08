@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.olpinski.stickynotes.data.converter.NoteConverter;
 import pl.olpinski.stickynotes.data.entity.Note;
-import pl.olpinski.stickynotes.dto.NewNoteDto;
-import pl.olpinski.stickynotes.dto.NoteDto;
+import pl.olpinski.stickynotes.data.dto.NewNoteDto;
+import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.repository.NoteRepository;
 import pl.olpinski.stickynotes.service.NoteService;
 

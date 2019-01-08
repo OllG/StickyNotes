@@ -3,8 +3,8 @@ package pl.olpinski.stickynotes.service;
 
 import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.entity.UserStatus;
-import pl.olpinski.stickynotes.dto.NewUserDto;
-import pl.olpinski.stickynotes.dto.UserDto;
+import pl.olpinski.stickynotes.data.dto.NewUserDto;
+import pl.olpinski.stickynotes.data.dto.UserDto;
 
 public interface UserService {
 
