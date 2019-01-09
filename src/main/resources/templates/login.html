@@ -12,9 +12,11 @@
         <input type="submit" value="Log in"><br/>
 
         <div th:if="${#session != null}">
-            <p th:text="${#session.getAttribute('message')}">
-                aaa
-            </p>
+            <div th:if="${#session.getAttribute('message') != null}">
+                <p th:text="${#session.getAttribute('message')}"></p>
+                <a href="/reset-password">Reset Password</a>
+                <p th:action="${#session.removeAttribute('message')}"></p>
+            </div>
         </div>
     </form>
     <a href="/register">Register</a>

@@ -5,10 +5,20 @@
     <title>Change mail</title>
 </head>
 <body>
-    <p th:text="${user.login}"></p>
+<div th:insert="navbar/navbar"> </div>
+
+<div style="text-align: center; margin-top: 70px">
+<div style="width: 400px; margin: auto;">
+    <p>Enter new mail for user: <span th:text="${user.login}"></span></p>
     <form action="/change-mail" method="post">
         <input type="text" name="mail">
         <input type="submit">
     </form>
+    <br/>
+    <div style="text-align: right">
+        <a href="/notes">Back</a>
+    </div>
+</div>
+</div>
 </body>
 </html>
