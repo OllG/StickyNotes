@@ -5,11 +5,14 @@
     <title>New note</title>
 </head>
 <body>
+<div th:insert="navbar/navbar"> </div>
+<div style="margin-top: 70px">
     <form action="/note/new" method="post">
         <input type="hidden" th:value="${user_id}">
         <input type="text" name="title"><br/>
         <textarea name="content"></textarea><br/>
         <input type="submit">
     </form>
+</div>
 </body>
 </html>

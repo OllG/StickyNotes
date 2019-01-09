@@ -19,7 +19,7 @@ public class ResetPasswordController {
 
     @GetMapping("reset-password")
     public String resetPasswordForm(){
-        return "reset-password";
+        return "edit-user/reset-password";
     }
 
     @PostMapping("reset-password")
@@ -37,7 +37,7 @@ public class ResetPasswordController {
         if(token.equals(user.getToken())){
             model.addAttribute("login", login);
             model.addAttribute("token", token);
-            return "new-password";
+            return "edit-user/new-password";
         }
         else throw new RuntimeException("Error while trying to reset password");
     }

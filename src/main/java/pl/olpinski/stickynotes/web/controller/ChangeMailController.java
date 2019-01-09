@@ -23,7 +23,7 @@ public class ChangeMailController {
         Long id = (Long) authentication.getPrincipal();
         UserDto user = userService.findUserById(id);
         model.addAttribute("user", user);
-        return "change-mail";
+        return "edit-user/change-mail";
     }
 
     @PostMapping("/change-mail")
