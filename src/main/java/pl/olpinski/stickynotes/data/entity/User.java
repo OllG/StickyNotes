@@ -23,6 +23,7 @@ public class User {
     private UserStatus status;
     private String token;
     private LocalDateTime creationTime;
+    private String tempMail;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Note> notes = new HashSet<>();
@@ -106,5 +107,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getTempMail() {
+        return tempMail;
+    }
+
+    public void setTempMail(String tempMail) {
+        this.tempMail = tempMail;
     }
 }

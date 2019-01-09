@@ -51,15 +51,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetailsDto getDetails(Long id){
-        Optional<User> optUser = userRepository.findById(id);
+    public String getTokenByLogin(String login) {
+        User user = userRepository.findOneByLoginIgnoreCase(login);
+        return user.getToken();
+    }
 
-        if(optUser.isPresent()){
-            UserDetailsDto user = userConverter.getDetails(optUser.get());
-            return user;
-        }
-
-        throw new RuntimeException("Method getDetails() recieved bad argument id");
+    @Override
+    public void confirmNewMail(String login) {
+        User user = userRepository.findOneByLoginIgnoreCase(login);
+        user.setMail(user.getTempMail());
+        user.setTempMail(null);
+        user.setToken(UUID.randomUUID().toString());
+        userRepository.save(user);
     }
 
     @Override
@@ -72,6 +75,18 @@ public class UserServiceImpl implements UserService {
     public User findUserByMail(String mail){
         User user = userRepository.findOneByMailIgnoreCase(mail);
         return user;
+    }
+
+    @Override
+    public UserDetailsDto getDetails(Long id){
+        Optional<User> optUser = userRepository.findById(id);
+
+        if(optUser.isPresent()){
+            UserDetailsDto user = userConverter.getDetails(optUser.get());
+            return user;
+        }
+
+        throw new RuntimeException("Method getDetails() recieved bad argument id");
     }
 
     @Override
@@ -163,6 +178,24 @@ public class UserServiceImpl implements UserService {
         user.setToken(UUID.randomUUID().toString());
         userRepository.save(user);
         return true;
+    }
+
+    @Override
+    public void setNewTempMail(Long id, String mail) {
+        Optional<User> optUser = userRepository.findById(id);
+        if(optUser.isPresent()){
+            User user = optUser.get();
+            user.setTempMail(mail);
+            user.setToken(UUID.randomUUID().toString());
+            User savedUser = userRepository.save(user);
+            sendNewMailConfirmation(savedUser);
+        }
+    }
+
+    private void sendNewMailConfirmation(User user){
+        String title = "Setting ne mail for account: " + user.getLogin();
+        String text = "http://localhost:8080/confirm-mail?login=" + user.getLogin() + "&token=" + user.getToken();
+        mailService.sendConfirmationMail(user.getTempMail(), title, text);
     }
 
     @Override

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Change mail</title>
+</head>
+<body>
+    <p th:text="${user.login}"></p>
+    <form action="/change-mail" method="post">
+        <input type="text" name="mail">
+        <input type="submit">
+    </form>
+</body>
+</html>

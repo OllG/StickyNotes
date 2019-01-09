@@ -11,14 +11,18 @@ import pl.olpinski.stickynotes.data.dto.UserDto;
 public interface UserService {
 
     UserDto findUserById(Long id);
-    UserDetailsDto getDetails(Long id);
     UserDto findUserByLogin(String login);
+    UserDetailsDto getDetails(Long id);
 
     boolean changeUserPassword(String login, String token, String password);
 
+    void setNewTempMail(Long id, String mail);
+
+    String getTokenByLogin(String login);
+    void confirmNewMail(String login);
+
     PasswordResetDto resetPasswordDto(String mail);
 
-    //new dto?
     User findUserByMail(String mail);
     void resetPasswordAttempt(String mail);
 
