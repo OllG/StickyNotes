@@ -50,7 +50,6 @@ public class ResetPasswordController {
         PasswordResetDto user = userService.resetPasswordDto(login);
 
         if(token.equals(user.getToken())){
-
             userService.changeUserPassword(login, token, password);
             return "redirect:/login";
         }

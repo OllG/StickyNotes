@@ -49,6 +49,8 @@ public class NoteServiceImpl implements NoteService {
             throw new RuntimeException("Próbujesz edytować notatkę, która nie istnieje");
         }
         Note editedNote = noteConverter.editNoteConversion(noteDto);
+        editedNote.setCreationTime(optNote.get().getCreationTime());
+        editedNote.setLastEditionTime(LocalDateTime.now());
         Note savedNote = noteRepository.save(editedNote);
         return savedNote;
     }

@@ -5,11 +5,12 @@
     <title>Note</title>
 </head>
 <body>
-    <div style="width: 300px;height: 300px;border: rebeccapurple;border-style: solid;">
+    <div style="width: 600px;height: 1200px;border: rebeccapurple;border-style: solid; margin: auto">
         <h1 style="text-align: center" th:text="${note.title}">Title</h1>
         <p th:text="${note.content}" style="margin: 15px;">Content</p>
         <br/>
         <p th:text="${note.creationTime}"></p>
+        <p th:text="${note.lastEditionTime}"></p>
         <br/>
         <a th:href="|/note/${note.id}/edit|">Edit</a><br/>
         <a th:href="|/notes/|">Back</a>

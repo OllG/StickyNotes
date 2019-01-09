@@ -9,6 +9,7 @@ public class NoteDto {
     private String title;
     private String content;
     private LocalDateTime creationTime;
+    private LocalDateTime lastEditionTime;
 
     public Long getId() {
         return id;
@@ -48,5 +49,13 @@ public class NoteDto {
 
     public void setCreationTime(LocalDateTime creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public LocalDateTime getLastEditionTime() {
+        return lastEditionTime;
+    }
+
+    public void setLastEditionTime(LocalDateTime lastEditionTime) {
+        this.lastEditionTime = lastEditionTime;
     }
 }

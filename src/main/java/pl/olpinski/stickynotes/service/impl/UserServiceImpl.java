@@ -75,15 +75,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void resetPasswordAttempt(String mail){
-        User user = userRepository.findOneByMailIgnoreCase(mail);
-        //to change
-        user.setToken(UUID.randomUUID().toString());
-        userRepository.save(user);
-        sendPasswordResetConfirmation(user);
-    }
-
-    @Override
     public boolean authenticate(String login, String password) {
 
         User user = userRepository.findOneByLoginIgnoreCase(login);
@@ -120,6 +111,7 @@ public class UserServiceImpl implements UserService {
 
         if(user != null && UserStatus.NEW.equals(user.getStatus())){
             user.setStatus(UserStatus.ACTIVATED);
+            user.setToken(UUID.randomUUID().toString());
             userRepository.save(user);
             return true;
         }
@@ -134,6 +126,14 @@ public class UserServiceImpl implements UserService {
                 user.getLogin(), user.getToken()}, Locale.getDefault());
 
         mailService.sendConfirmationMail(user.getMail(), activationTitle, mailText);
+    }
+
+    @Override
+    public void resetPasswordAttempt(String mail){
+        User user = userRepository.findOneByMailIgnoreCase(mail);
+        user.setToken(UUID.randomUUID().toString());
+        userRepository.save(user);
+        sendPasswordResetConfirmation(user);
     }
 
     @Override
@@ -160,6 +160,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(passwordEncoder.encode(password));
+        user.setToken(UUID.randomUUID().toString());
         userRepository.save(user);
         return true;
     }

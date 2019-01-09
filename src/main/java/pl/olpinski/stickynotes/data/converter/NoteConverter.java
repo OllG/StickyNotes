@@ -20,13 +20,14 @@ public class NoteConverter{
     }
 
     //@Override
-    public NoteDto convert(Note object) {
+    public NoteDto convert(Note note) {
         //zmienic user id na user dto i ustawiac przy konwersji usera
-        Long id = object.getId();
-        Long userId = object.getUser().getId();
-        String title = object.getTitle();
-        String content = object.getContent();
-        LocalDateTime creationTime = object.getCreationTime();
+        Long id = note.getId();
+        Long userId = note.getUser().getId();
+        String title = note.getTitle();
+        String content = note.getContent();
+        LocalDateTime creationTime = note.getCreationTime();
+        LocalDateTime lastEditionTime = note.getLastEditionTime();
 
         NoteDto noteDto = new NoteDto();
         noteDto.setId(id);
@@ -34,6 +35,7 @@ public class NoteConverter{
         noteDto.setTitle(title);
         noteDto.setContent(content);
         noteDto.setCreationTime(creationTime);
+        noteDto.setLastEditionTime(lastEditionTime);
 
         return noteDto;
     }
@@ -66,6 +68,7 @@ public class NoteConverter{
         note.setTitle(noteDto.getTitle());
         note.setContent(noteDto.getContent());
         note.setCreationTime(noteDto.getCreationTime());
+        note.setLastEditionTime(noteDto.getLastEditionTime());
         return note;
     }
 }
