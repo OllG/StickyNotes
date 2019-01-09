@@ -5,12 +5,13 @@
     <title>User</title>
 
 </head>
-<body>
+
+<body th:style="|background-image: url(@{cork.jpg})|">
     <div th:insert="navbar/navbar"> </div>
 
-    <div style="width: 100%; text-align: center; margin-top: 70px">
+    <div style="width: 60%; text-align: center; margin: auto; margin-top: 70px;">
     <h1 th:text="${user.login}">login</h1>
-    <div th:each="note : ${user.notes}" style="width: 240px;height: 240px;border: rebeccapurple solid 2px; display: inline-grid; margin: 10px">
+    <div th:each="note : ${user.notes}" style="width: 240px;height: 240px; border: solid black 1px; display: inline-grid; margin: 10px; box-shadow: 10px 10px 10px rgba(0, 0, 0, .5), -5px -5px 5px rgba(0, 0, 0, .2); background-color: #ffffb2">
         <p style="text-align: center"><a href="" th:href="|/note/${note.id}|" th:text="${note.title}" style="text-align: center">Notka</a></p>
         <p th:text="${note.content}" style="margin: 15px;">Content</p>
         <br/>
