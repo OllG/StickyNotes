@@ -17,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
+    @GetMapping({"/login", "/login/"})
     public String loginForm(Authentication authentication){
 
         if(authentication != null){

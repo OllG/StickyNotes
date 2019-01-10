@@ -1,0 +1,10 @@
+<div th:style="|background-image: url(@{../navbar.jpg});|" class="navbar-container">
+    <div sec:authentication="principal" class="navbar-login"></div>
+    <div style="text-align: right; margin-right: 150px; margin-top: 15px; display: inline-block; right: 10px; float: right;">
+
+        <a href="/notes" class="navbar-link">Notes</a>
+        <a href="/note/new" class="navbar-link">New Note</a>
+        <a href="/user/details" class="navbar-link">User info</a>
+        <a href="/logout" class="navbar-link">Log out</a>
+    </div>
+</div>

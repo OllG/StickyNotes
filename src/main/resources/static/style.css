@@ -1,0 +1,59 @@
+.notes-container{
+    color: #000075;
+    width: 1240px;
+    text-align: justify;
+    margin: 100px auto;
+}
+
+.note-prev{
+    width: 320px;
+    height: 320px;
+    text-align: center;
+    display: inline-block;
+    margin: 25px;
+    box-shadow:
+            5px 5px 25px 7px rgba(0, 0, 0, .35),
+            -5px -5px 15px rgba(0, 0, 0, .1);
+    background-color: #feff9c;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.title-prev{
+    color: #000072;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.content-prev{
+    text-align: justify;
+    margin: 20px;
+    white-space: pre-line;
+    overflow: hidden;
+    height: 176px;
+}
+
+.navbar-container{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    float: left;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, .6);
+    color: aliceblue;
+    padding: 20px;
+}
+
+.navbar-link{
+    color: aliceblue;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.navbar-login{
+    margin: 15px 100px;
+    display: inline-block;
+}

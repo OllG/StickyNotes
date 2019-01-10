@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>User</title>
-    <link rel="stylesheet" href="../static/notes.css" th:href="|@{../notes.css}|">
+    <link rel="stylesheet" href="../static/style.css" th:href="|@{../style.css}|">
 </head>
 <body th:style="|background-image: url(@{../cork.jpg})|">
 
-    <div th:insert="navbar/navbar"> </div>
+    <div th:insert="frags/navbar"> </div>
 
-    <div class="container">
-        <div th:each="note : ${user.notes}" class="note">
-            <a href="" th:href="|/note/${note.id}|" th:text="${note.title}" class="title">Title</a>
-            <div th:text="${note.content}" class="content">Content</div>
+    <div class="notes-container">
+        <div th:each="note : ${user.notes}" class="note-prev">
+            <a href="" th:href="|/note/${note.id}|" th:text="${note.title}" class="title-prev">Title</a>
+            <div th:text="${note.content}" class="content-prev">Content</div>
         </div>
     </div>
 </body>
