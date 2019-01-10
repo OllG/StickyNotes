@@ -26,7 +26,7 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping({"/notes", "", "/"})
+    @GetMapping({"/notes", "", "/", "notes/"})
     public String userNotes(Model model, Authentication authentication){
         Long id = (Long) authentication.getPrincipal();
         UserDto userDto = userService.findUserById(id);

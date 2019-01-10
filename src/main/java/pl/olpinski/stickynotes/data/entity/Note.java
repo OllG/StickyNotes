@@ -15,7 +15,7 @@ public class Note {
     private User user;
     private String title;
 
-    @Column(length = 240)
+    @Column(length = 10000)
     private String content;
     private LocalDateTime creationTime;
     private LocalDateTime lastEditionTime;

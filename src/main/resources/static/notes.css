@@ -1,0 +1,35 @@
+.container{
+    color: #000075;
+    width: 1240px;
+    text-align: center;
+    margin: 70px auto;
+}
+
+.note{
+    width: 240px;
+    height: 240px;
+    display: inline-block;
+    margin: 10px;
+    box-shadow:
+            5px 5px 15px 3px rgba(0, 0, 0, .6),
+            -5px -5px 10px rgba(0, 0, 0, .2);
+    background-color: #feff9c;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.title{
+    color: #000072;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.content{
+    text-align: justify;
+    margin: 20px;
+    white-space: pre-line;
+    overflow: hidden;
+    height: 176px;
+}
