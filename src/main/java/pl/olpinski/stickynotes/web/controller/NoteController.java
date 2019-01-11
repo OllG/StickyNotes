@@ -47,6 +47,13 @@ public class NoteController {
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }
 
+    @PostMapping("/delete")
+    public String deleteNote(@RequestParam("id") Long id){
+
+
+        return "redirect:/notes";
+    }
+
     @GetMapping("/new")
     public String newNoteForm(Model model, Authentication authentication){
 

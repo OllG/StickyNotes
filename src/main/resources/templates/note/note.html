@@ -10,6 +10,10 @@
     <div class="note">
 
         <div class="note-navbar">
+            <form action="/note/delete" method="post">
+                <input type="hidden" th:value="${note.id}" name="id">
+                <input type="submit" value="delete">
+            </form>
             <a class="note-nav" th:href="|/notes|">Back</a>
             <a class="note-nav" th:href="|/note/${note.id}/edit|">Edit</a>
         </div>
