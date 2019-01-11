@@ -76,11 +76,19 @@ a.note-nav{
 }
 
 .content-prev{
+    height: 250px;
+    width: 280px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    -ms-word-break: break-all;
+
+
     text-align: justify;
     margin: 20px;
     white-space: pre-line;
     overflow: hidden;
-    height: 176px;
+
 }
 
 .navbar-container{

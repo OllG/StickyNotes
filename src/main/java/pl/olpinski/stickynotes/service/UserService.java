@@ -20,6 +20,7 @@ public interface UserService {
 
     String getTokenByLogin(String login);
     void confirmNewMail(String login);
+    void resendActivationMail(String mail);
 
     PasswordResetDto resetPasswordDto(String mail);
 

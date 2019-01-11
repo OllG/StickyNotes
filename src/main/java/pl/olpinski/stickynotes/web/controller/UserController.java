@@ -41,4 +41,15 @@ public class UserController {
         model.addAttribute("user", user);
         return "user_details";
     }
+
+    @GetMapping("resend-activation")
+    public String getResendActivation(){
+        return "edit-user/resend-activation";
+    }
+
+    @PostMapping("resend-activation")
+    public String postResendActivation(@RequestParam("mail") String mail){
+        userService.resendActivationMail(mail);
+        return "redirect:/login";
+    }
 }

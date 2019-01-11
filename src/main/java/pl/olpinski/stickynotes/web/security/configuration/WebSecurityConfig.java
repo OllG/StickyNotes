@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login", "/register", "/user/activate",
                         "/user/activate/*", "/h2-console", "/h2-console/*",
-                        "/reset-password", "/user/reset*", "/new-password*").permitAll()
+                        "/reset-password", "/user/reset*", "/new-password*", "/resend-activation*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

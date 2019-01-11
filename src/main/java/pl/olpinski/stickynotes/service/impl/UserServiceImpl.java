@@ -133,6 +133,17 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public void resendActivationMail(String mail){
+        User user = userRepository.findOneByMailIgnoreCase(mail);
+        if(user == null){
+            throw new RuntimeException("There is no account attached to this mail");
+        } else if(user.getStatus() != UserStatus.NEW){
+            throw new RuntimeException("User status is not 'NEW'");
+        }
+        sendConfirmationMail(user);
+    }
+
     private void sendConfirmationMail(User user){
         String activationTitle = messageSource.getMessage("mail.activation.title", new Object[]{
                 user.getFirstName()}, Locale.getDefault());
@@ -163,7 +174,7 @@ public class UserServiceImpl implements UserService {
 
     private void sendPasswordResetConfirmation(User user){
         String title = "Resetting password for account " + user.getLogin();
-        String text = "http://localhost:8080/new-password?login=" + user.getLogin() + "&token=" + user.getToken();
+        String text = "http://localhost:8443/new-password?login=" + user.getLogin() + "&token=" + user.getToken();
         mailService.sendConfirmationMail(user.getMail(), title, text);
     }
 
@@ -194,7 +205,7 @@ public class UserServiceImpl implements UserService {
 
     private void sendNewMailConfirmation(User user){
         String title = "Setting ne mail for account: " + user.getLogin();
-        String text = "http://localhost:8080/confirm-mail?login=" + user.getLogin() + "&token=" + user.getToken();
+        String text = "http://localhost:8443/confirm-mail?login=" + user.getLogin() + "&token=" + user.getToken();
         mailService.sendConfirmationMail(user.getTempMail(), title, text);
     }
 
