@@ -7,16 +7,14 @@
 </head>
 <body th:style="|background-image: url(@{../cork.jpg})|">
     <div th:insert="frags/navbar"> </div>
-
-
     <div class="note">
 
         <div class="note-navbar">
-            <a class="note-nav" th:href="|/notes|">Back</a>&nbsp;&nbsp;
+            <a class="note-nav" th:href="|/notes|">Back</a>
             <a class="note-nav" th:href="|/note/${note.id}/edit|">Edit</a>
         </div>
 
-        <h1 class="note-title" th:text="${note.title}">Title</h1>
+        <p class="note-title" th:text="${note.title}">Title</p>
         <p th:text="${note.content}" class="note-content">Content</p>
         <br/>
         <div class="note-dates">

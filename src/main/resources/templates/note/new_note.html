@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>New note</title>
+    <link rel="stylesheet" href="../../static/style.css" th:href="|@{../../style.css}|">
 </head>
-<body>
-<div th:insert="frags/navbar"> </div>
-<div style="margin-top: 70px">
-    <form action="/note/new" method="post">
-        <input type="hidden" th:value="${user_id}">
-        <input type="text" name="title"><br/>
-        <textarea name="content"></textarea><br/>
-        <input type="submit">
-    </form>
-</div>
+<body th:style="|background-image: url(@{../../cork.jpg})|" style="background-image: url('../../static/cork.jpg')">
+
+    <div th:insert="frags/navbar"> </div>
+
+    <div class="note">
+
+        <div class="note-navbar">
+            <a class="note-nav" th:href="|/notes|">Back</a>
+        </div>
+        <form action="/note/new" method="post">
+            <input type="hidden" th:value="${user_id}">
+            <input type="text" name="title" class="new-title" placeholder="Title"><br/>
+            <textarea name="content" class="new-content" placeholder="Note content"></textarea><br/>
+
+            <div style="text-align: right">
+                <input type="submit" style="margin-right: 50px">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

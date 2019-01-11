@@ -26,11 +26,34 @@
     font-weight: bold;
 }
 
+.content-prev{
+    height: 250px;
+    width: 280px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    -ms-word-break: break-all;
+
+    text-align: justify;
+    margin: 20px;
+    white-space: pre-line;
+    overflow: hidden;
+
+}
+
 .note{
     color: #000042;
     position: relative;
     width: 600px;
     height: 640px;
+
+    text-align: center;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    -ms-word-break: break-all;
+
     background-color: #feff9c;
     box-shadow:
             5px 5px 25px 7px rgba(0, 0, 0, .35),
@@ -53,6 +76,8 @@ a.note-nav{
 
 .note-title{
     text-align: center;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .note-content{
@@ -61,12 +86,13 @@ a.note-nav{
 }
 
 .note-dates{
+    text-align: left;
     font-size: 12px;
     position: absolute;
     height: 70px;
     bottom: 20px;
     left: 40px;
-    width: 300px;
+    width: 500px;
 }
 
 .date{
@@ -75,20 +101,23 @@ a.note-nav{
     margin: 8px;
 }
 
-.content-prev{
-    height: 250px;
-    width: 280px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-all;
-    -ms-word-break: break-all;
+.new-title{
+    width: 400px;
+    align-self: center;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 30px;
+    background-color: #feff9c;
+    border: none;
+}
 
-
-    text-align: justify;
-    margin: 20px;
-    white-space: pre-line;
-    overflow: hidden;
-
+.new-content{
+    background-color: #feff9c;
+    width: 500px;
+    height: 400px;
+    margin: 40px auto 20px;
+    border: none;
 }
 
 .navbar-container{
