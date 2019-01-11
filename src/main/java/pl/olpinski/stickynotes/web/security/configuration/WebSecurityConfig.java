@@ -60,16 +60,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private void redirectFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         String errMsg ="";
+        int errorType = 0;
         if(exception.getClass().isAssignableFrom(BadCredentialsException.class)){
+            errorType = 1;
             errMsg="Invalid username or password.";
         } else if(exception.getClass().isAssignableFrom(NotActivatedUserException.class)){
+            errorType = 2;
             errMsg="This user is not activated yet, please confirm your mail.";
         } else if(exception.getClass().isAssignableFrom(DisabledUserException.class)){
+            errorType = 3;
             errMsg="This user is disabled, contact administration for help.";
         } else{
             errMsg="Unknown error - " + exception.getMessage();
         }
         request.getSession().setAttribute("message", errMsg);
+        request.getSession().setAttribute("errType", errorType);
         response.sendRedirect("/login");
     }
 

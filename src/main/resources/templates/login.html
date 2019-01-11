@@ -7,18 +7,22 @@
 </head>
 <body>
     <form action="" method="post">
+
         <input type="text" name="login"/><br/>
         <input type="password" name="password"/><br/>
         <input type="submit" value="Log in"><br/>
-
-        <div th:if="${#session != null}">
-            <div th:if="${#session.getAttribute('message') != null}">
-                <p th:text="${#session.getAttribute('message')}"></p>
-                <a href="/reset-password">Reset Password</a>
-                <p th:action="${#session.removeAttribute('message')}"></p>
-            </div>
-        </div>
     </form>
+
+    <div th:if="${#session != null}">
+        <div th:if="${#session.getAttribute('message') != null}">
+            <p th:text="${#session.getAttribute('message')}"></p>
+            <p th:if="${#session.getAttribute('errType') == 1}"><a href="/reset-password">Reset Password</a></p>
+            <p th:if="${#session.getAttribute('errType') == 2}"><a href="/resend-activation">Resend activation link</a></p>
+            <p th:action="${#session.removeAttribute('message')}"></p>
+            <p th:action="${#session.removeAttribute('errType')}"></p>
+        </div>
+    </div>
+
     <a href="/register">Register</a>
 </body>
 </html>

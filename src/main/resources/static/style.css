@@ -26,6 +26,55 @@
     font-weight: bold;
 }
 
+.note{
+    color: #000042;
+    position: relative;
+    width: 600px;
+    height: 640px;
+    background-color: #feff9c;
+    box-shadow:
+            5px 5px 25px 7px rgba(0, 0, 0, .35),
+            -5px -5px 15px rgba(0, 0, 0, .1);
+    margin: auto;
+    margin-top: 120px;
+}
+
+.note-navbar{
+    text-align: right;
+    padding-top: 20px;
+    margin-right: 20px;
+}
+
+a.note-nav{
+    color: #000042;
+    margin: 10px;
+    text-decoration: none;
+}
+
+.note-title{
+    text-align: center;
+}
+
+.note-content{
+    text-align: justify;
+    margin: 40px 60px;
+}
+
+.note-dates{
+    font-size: 12px;
+    position: absolute;
+    height: 70px;
+    bottom: 20px;
+    left: 40px;
+    width: 300px;
+}
+
+.date{
+    color: #606060;
+    font-weight: bold;
+    margin: 8px;
+}
+
 .content-prev{
     text-align: justify;
     margin: 20px;

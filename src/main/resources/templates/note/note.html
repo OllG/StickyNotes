@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Note</title>
+    <link rel="stylesheet" href="../static/style.css" th:href="|@{../style.css}|">
 </head>
-<body>
+<body th:style="|background-image: url(@{../cork.jpg})|">
     <div th:insert="frags/navbar"> </div>
 
 
-    <div style="position: relative; width: 600px;height: 640px;border: rebeccapurple;border-style: solid; margin: auto; margin-top: 70px">
+    <div class="note">
 
-        <div style="text-align: right; margin-top: 10px; margin-right: 20px">
-            <a th:href="|/notes|">Back</a>&nbsp;&nbsp;
-            <a th:href="|/note/${note.id}/edit|">Edit</a>
+        <div class="note-navbar">
+            <a class="note-nav" th:href="|/notes|">Back</a>&nbsp;&nbsp;
+            <a class="note-nav" th:href="|/note/${note.id}/edit|">Edit</a>
         </div>
 
-        <h1 style="text-align: center" th:text="${note.title}">Title</h1>
-        <p th:text="${note.content}" style="margin: 15px;">Content</p>
+        <h1 class="note-title" th:text="${note.title}">Title</h1>
+        <p th:text="${note.content}" class="note-content">Content</p>
         <br/>
-        <div style="position:absolute; height: 70px; bottom: 20px; left: 10px; width: 300px;">
-        <p th:text="${note.creationTime}"></p>
-        <p th:text="${note.lastEditionTime}"></p>
+        <div class="note-dates">
+        <p class="date" th:text="${note.creationTime}"></p>
+        <p class="date" th:text="${note.lastEditionTime}"></p>
         </div>
         <br/>
     </div>
