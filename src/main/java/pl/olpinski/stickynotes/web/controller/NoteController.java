@@ -50,7 +50,6 @@ public class NoteController {
     @PostMapping("/delete")
     public String deleteNote(@RequestParam("id") Long id){
 
-
         return "redirect:/notes";
     }
 
