@@ -42,14 +42,19 @@ public class UserController {
         return "user_details";
     }
 
-    @GetMapping("resend-activation")
+    @GetMapping("/resend-activation")
     public String getResendActivation(){
         return "edit-user/resend-activation";
     }
 
-    @PostMapping("resend-activation")
+    @PostMapping("/resend-activation")
     public String postResendActivation(@RequestParam("mail") String mail){
         userService.resendActivationMail(mail);
         return "redirect:/login";
+    }
+
+    @GetMapping("/error")
+    public String error(){
+        return "error";
     }
 }

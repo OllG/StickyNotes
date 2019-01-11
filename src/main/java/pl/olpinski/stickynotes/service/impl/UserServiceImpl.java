@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             return true;
         }
-        return false;
+        throw new RuntimeException("Error while trying to activate user");
     }
 
     @Override
