@@ -1,4 +1,4 @@
-#StickyNotes
+<b>StickyNotes</b>
 
 Simple Spring Webapp for storing simple notes.
 
@@ -9,7 +9,8 @@ possibility to change e-mail address attached to account
 (with confirmaion mail)
 and to reset password.
 
-#Missing
+<b>Missing</b>
+
 There is missing yaml file 
 with properties for mail sender and https protocol.
 (don't want passwords on public)
