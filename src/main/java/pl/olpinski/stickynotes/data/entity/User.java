@@ -29,6 +29,7 @@ public class User {
     //need to change this collection
     private Set<Note> notes = new HashSet<>();
 
+    //checking branches step 2
 
     public String getToken() {
         return token;
