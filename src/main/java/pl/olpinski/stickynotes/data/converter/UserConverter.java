@@ -8,6 +8,7 @@ import pl.olpinski.stickynotes.data.dto.UserCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.dto.UserDto;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,12 +30,13 @@ public class UserConverter {
         userDto.setPassword(object.getPassword());
         userDto.setMail(object.getMail());
 
-        Set<Note> set = object.getNotes();
-        Set<NoteDto> noteDtoSet;// = new HashSet<>();
+        Set<Note> set = (Set)object.getNoteMap().values();
+        List<NoteDto> noteDtoList;
 
-        noteDtoSet = set.stream().map(note -> noteConverter.convert(note)).collect(Collectors.toSet());
+        noteDtoList = set.stream().map(note -> noteConverter.convert(note)).collect(Collectors.toList());
+        //noteDtoList.sort((x, y) -> x); //need to add last edition time on creation
 
-        userDto.setNotes(noteDtoSet);
+        userDto.setNotes(noteDtoList);
 
         return userDto;
     }

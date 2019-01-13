@@ -1,5 +1,6 @@
 package pl.olpinski.stickynotes.data.dto;
 
+import java.util.List;
 import java.util.Set;
 
 public class UserDto {
@@ -10,7 +11,7 @@ public class UserDto {
     private String password;
     private String mail;
 
-    private Set<NoteDto> notes;
+    private List<NoteDto> notes;
 
     public Long getId() {
         return id;
@@ -44,11 +45,11 @@ public class UserDto {
         this.mail = mail;
     }
 
-    public Set<NoteDto> getNotes() {
+    public List<NoteDto> getNotes() {
         return notes;
     }
 
-    public void setNotes(Set<NoteDto> notes) {
+    public void setNotes(List<NoteDto> notes) {
         this.notes = notes;
     }
 }

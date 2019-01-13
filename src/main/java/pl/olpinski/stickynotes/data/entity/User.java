@@ -27,9 +27,9 @@ public class User {
     private LocalDateTime creationTime;
     private String tempMail;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+/*    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     //need to change this collection
-    private Set<Note> notes = new HashSet<>();
+    private Set<Note> notes = new HashSet<>();*/
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     @MapKey(name = "perUserId")
@@ -93,13 +93,13 @@ public class User {
         this.noteMap = noteMap;
     }
 
-    public Set<Note> getNotes() {
+/*    public Set<Note> getNotes() {
         return notes;
     }
 
     public void setNotes(Set<Note> notes) {
         this.notes = notes;
-    }
+    }*/
 
     public UserStatus getStatus() {
         return status;

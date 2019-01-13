@@ -30,6 +30,8 @@ public class UserController {
     public String userNotes(Model model, Authentication authentication){
         Long id = (Long) authentication.getPrincipal();
         UserDto userDto = userService.findUserById(id);
+        //refactor
+        userDto.getNotes().sort((x, y) -> -(x.getLastEditionTime().compareTo(y.getLastEditionTime())));
         model.addAttribute("user", userDto);
         return "notes";
     }
