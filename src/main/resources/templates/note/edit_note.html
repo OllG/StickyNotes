@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Note</title>
+    <link rel="stylesheet" href="../../static/style.css" th:href="|@{../../style.css}|">
 </head>
-<body>
-<div th:insert="frags/navbar"> </div>
-<div style="margin-top: 70px">
-<form action="" method="post">
-    <input type="hidden" th:value="${note.userId}" th:name="userId">
-    <input type="hidden" th:value="${note.id}" th:name="id">
-    <input type="text" name="title" th:value="${note.title}" th:name="title"><br/>
-    <textarea name="content" th:text="${note.content}" th:name="content"></textarea><br/>
-    <input type="submit">
-</form>
-</div>
+<body th:style="|background-image: url(@{../../cork.jpg})|" style="background-image: url('../../static/cork.jpg')">
+
+    <div th:insert="frags/navbar"> </div>
+
+    <div class="note">
+
+        <div class="note-navbar">
+            <a class="note-nav" th:href="|/notes|">Back</a>
+        </div>
+
+        <form action="" method="post">
+            <input type="hidden" th:value="${note.userId}" th:name="userId">
+            <input type="hidden" th:value="${note.id}" th:name="id">
+            <input type="text" name="title" th:value="${note.title}" th:name="title" class="new-title"><br/>
+            <textarea name="content" th:text="${note.content}" th:name="content" class="new-content"></textarea><br/>
+            <input type="submit">
+        </form>
+    </div>
 </body>
 </html>
