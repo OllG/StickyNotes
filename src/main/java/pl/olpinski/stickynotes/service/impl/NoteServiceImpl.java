@@ -7,6 +7,7 @@ import pl.olpinski.stickynotes.data.converter.NoteConverter;
 import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.data.dto.NoteCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
+import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.data.repository.NoteRepository;
 import pl.olpinski.stickynotes.service.NoteService;
 
@@ -33,6 +34,12 @@ public class NoteServiceImpl implements NoteService {
             return note;
         }
         throw new RuntimeException("podano nieistniejace id do metody getNoteById()");
+    }
+
+    @Override
+    public NoteDto getNoteByPerUserIdAndUser(Long id, User user) {
+        Note note = noteRepository.findByPerUserIdAndUser(id, user);
+        return noteConverter.convert(note);
     }
 
     @Override

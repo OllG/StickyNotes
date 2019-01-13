@@ -6,6 +6,7 @@ public class NoteDto {
 
     private Long id;
     private Long userId;
+    private Long perUserId;
     private String title;
     private String content;
     private LocalDateTime creationTime;
@@ -25,6 +26,14 @@ public class NoteDto {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getPerUserId() {
+        return perUserId;
+    }
+
+    public void setPerUserId(Long perUserId) {
+        this.perUserId = perUserId;
     }
 
     public String getTitle() {

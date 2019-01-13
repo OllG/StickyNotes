@@ -24,6 +24,7 @@ public class NoteConverter{
         //zmienic user id na user dto i ustawiac przy konwersji usera
         Long id = note.getId();
         Long userId = note.getUser().getId();
+        Long perUserId = note.getPerUserId();
         String title = note.getTitle();
         String content = note.getContent();
         LocalDateTime creationTime = note.getCreationTime();
@@ -31,6 +32,7 @@ public class NoteConverter{
 
         NoteDto noteDto = new NoteDto();
         noteDto.setId(id);
+        noteDto.setPerUserId(perUserId);
         noteDto.setUserId(userId);
         noteDto.setTitle(title);
         noteDto.setContent(content);

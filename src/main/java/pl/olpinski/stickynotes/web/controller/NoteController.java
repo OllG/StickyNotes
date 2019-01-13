@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.olpinski.stickynotes.data.dto.UserDto;
 import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.data.dto.NoteCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
+import pl.olpinski.stickynotes.data.entity.User;
 import pl.olpinski.stickynotes.service.NoteService;
 import pl.olpinski.stickynotes.service.UserService;
 
@@ -26,8 +28,13 @@ public class NoteController {
 
 
     @GetMapping("/{id}")
-    public String note(@PathVariable Long id, Model model){
-        NoteDto noteDto = noteService.getNoteById(id);
+    public String note(@PathVariable Long id, Model model, Authentication authentication){
+
+        //to refactor
+        UserDto userDto = userService.findUserById((Long) authentication.getPrincipal());
+        User user = userService.findUserByMail(userDto.getMail());
+        //
+        NoteDto noteDto = noteService.getNoteByPerUserIdAndUser(id, user);
         model.addAttribute("note", noteDto);
         return "note/note";
     }

@@ -11,7 +11,7 @@
 
     <div class="notes-container">
         <div th:each="note : ${user.notes}" class="note-prev">
-            <a href="" th:href="|/note/${note.id}|" th:text="${note.title}" class="title-prev">Title</a>
+            <a href="" th:href="|/note/${note.perUserId}|" th:text="${note.title}" class="title-prev">Title</a>
             <div th:text="${note.content}" class="content-prev">Content</div>
         </div>
     </div>
