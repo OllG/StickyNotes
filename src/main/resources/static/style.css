@@ -115,9 +115,11 @@ a.note-nav{
 .new-content{
     background-color: #feff9c;
     width: 500px;
-    height: 400px;
+    height: 380px;
     margin: 40px auto 20px;
     border: none;
+    color: #000042;
+    resize: none;
 }
 
 .navbar-container{
