@@ -5,16 +5,38 @@
     <title th:text="${user.login}">Login</title>
     <link rel="stylesheet" href="../static/style.css" th:href="|@{../style.css}|">
 </head>
-<body>
+<body th:style="|background-image: url(@{../../cork.jpg})|" style="background-image: url('../../static/cork.jpg')">
+
     <div th:insert="frags/navbar"> </div>
-    <div style="margin-top: 120px;">
-        <div style="width: 400px; margin: auto">
-            <p th:text="${user.login}"></p>
-            <p th:text="${user.mail}"></p>
-            <a href="/change-mail">Change mail</a>
-            <p th:text="${user.firstName}"></p>
-            <p th:text="${user.lastName}"></p>
-            <p th:text="${user.creationTime}"></p>
+
+    <div style="margin-top: 120px;" class="note">
+
+        <div style="width: 380px; margin: auto; padding-top: 20px;">
+            <table style="padding-top: 40px;">
+                <tr>
+                    <td style="width: 200px; text-align: left">Login: </td>
+                    <td style="text-align: right" th:text="${user.login}"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left; width: 200px;">E-Mail: </td>
+                    <td th:text="${user.mail}" style="text-align: right"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left; width: 200px;">First Name:</td>
+                    <td th:text="${user.firstName}" style="text-align: right"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left; width: 200px;">Last Name:</td>
+                    <td th:text="${user.lastName}" style="text-align: right"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left; width: 200px;">Creation Time:</td>
+                    <td th:text="${user.creationTime}" style="text-align: right"></td>
+                </tr>
+            </table>
+            <div style="text-align: left; padding-left: 15px; padding-top: 30px">
+                <a href="/change-mail">Change mail</a>
+            </div>
         </div>
     </div>
 </body>
