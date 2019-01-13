@@ -53,8 +53,4 @@ public class UserController {
         return "redirect:/login";
     }
 
-/*    @GetMapping("/error")
-    public String error(){
-        return "error";
-    }*/
 }

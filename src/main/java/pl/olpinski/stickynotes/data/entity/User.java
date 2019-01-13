@@ -2,7 +2,9 @@ package pl.olpinski.stickynotes.data.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -28,6 +30,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     //need to change this collection
     private Set<Note> notes = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @MapKey(name = "perUserId")
+    private Map<Long, Note> noteMap = new HashMap<>();
 
     //checking branches step 2
 
@@ -77,6 +83,14 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public Map<Long, Note> getNoteMap() {
+        return noteMap;
+    }
+
+    public void setNoteMap(Map<Long, Note> noteMap) {
+        this.noteMap = noteMap;
     }
 
     public Set<Note> getNotes() {

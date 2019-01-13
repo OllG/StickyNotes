@@ -6,9 +6,18 @@ import java.time.LocalDateTime;
 @Entity
 public class Note {
 
+    private static Long lastId = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long perUserId;
+
+    //to delete
+    public Note() {
+        perUserId = lastId++;
+    }
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
@@ -27,6 +36,15 @@ public class Note {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getPerUserId() {
+        return perUserId;
+    }
+
+    public void setPerUserId(Long perUserId) {
+        this.perUserId = perUserId;
+    }
+
 
     public User getUser() {
         return user;
