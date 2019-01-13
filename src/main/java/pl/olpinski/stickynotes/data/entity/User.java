@@ -26,6 +26,7 @@ public class User {
     private String tempMail;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    //need to change this collection
     private Set<Note> notes = new HashSet<>();
 
 
