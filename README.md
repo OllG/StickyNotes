@@ -9,7 +9,7 @@ possibility to change e-mail address attached to account
 (with confirmaion mail)
 and to reset password.
 
-Spring, Spring Boot, Spring MVC, Spring Data
+Spring, Spring Boot, Spring MVC, Spring Data,
 Spring Security and H2 database,
 Gradle
 
