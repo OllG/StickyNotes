@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
             return user;
         }
 
-        throw new RuntimeException("Method getDetails() recieved bad argument id");
+        throw new RuntimeException("Method getDetails() recieved bad id");
     }
 
     @Override
@@ -174,7 +174,7 @@ public class UserServiceImpl implements UserService {
 
     private void sendPasswordResetConfirmation(User user){
         String title = "Resetting password for account " + user.getLogin();
-        String text = "http://localhost:8443/new-password?login=" + user.getLogin() + "&token=" + user.getToken();
+        String text = "http://localhost:8080/new-password?login=" + user.getLogin() + "&token=" + user.getToken();
         mailService.sendConfirmationMail(user.getMail(), title, text);
     }
 
@@ -205,7 +205,7 @@ public class UserServiceImpl implements UserService {
 
     private void sendNewMailConfirmation(User user){
         String title = "Setting ne mail for account: " + user.getLogin();
-        String text = "http://localhost:8443/confirm-mail?login=" + user.getLogin() + "&token=" + user.getToken();
+        String text = "http://localhost:8080/confirm-mail?login=" + user.getLogin() + "&token=" + user.getToken();
         mailService.sendConfirmationMail(user.getTempMail(), title, text);
     }
 

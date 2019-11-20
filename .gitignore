@@ -24,5 +24,7 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Personal Files ###
 /src/main/resources/application.yml
 /src/main/resources/keystore.p12
