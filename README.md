@@ -10,7 +10,7 @@ possibility to change e-mail address attached to account
 and to reset password.
 
 Spring, Spring Boot, Spring MVC, Spring Data,
-Spring Security and H2 database,
+Spring Security and H2 database, Thymeleaf
 Gradle
 
 <b>Missing</b>
