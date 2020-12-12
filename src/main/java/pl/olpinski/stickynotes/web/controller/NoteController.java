@@ -26,14 +26,25 @@ public class NoteController {
 
 
     @GetMapping("/{id}")
-    public String note(@PathVariable Long id, Model model){
+    public String note(@PathVariable Long id, Model model, Authentication authentication){
+
+        if(!HasAccess(id, (Long )authentication.getPrincipal()))
+        {
+            return "redirect:/notes";
+        }
+
         NoteDto noteDto = noteService.getNoteById(id);
         model.addAttribute("note", noteDto);
         return "note/note";
     }
 
     @GetMapping("/{id}/edit")
-    public String editNoteForm(@PathVariable Long id, Model model){
+    public String editNoteForm(@PathVariable Long id, Model model, Authentication authentication){
+
+        if(!HasAccess(id, (Long )authentication.getPrincipal()))
+        {
+            return "redirect:/notes";
+        }
 
         NoteDto note = noteService.getNoteById(id);
         model.addAttribute("note", note);
@@ -41,14 +52,25 @@ public class NoteController {
     }
 
     @PostMapping("/{id}/edit")
-    public ModelAndView editNote(NoteDto noteDto){
+    public ModelAndView editNote(NoteDto noteDto, Authentication authentication){
+
+        if(!HasAccess(noteDto.getId(), (Long )authentication.getPrincipal()))
+        {
+            return new ModelAndView( "redirect:/notes");
+        }
+
         Note savedNote = noteService.editNote(noteDto);
 
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteNote(@RequestParam("id") Long id){
+    public String deleteNote(@RequestParam("id") Long id, Authentication authentication){
+
+        if(!HasAccess(id, (Long )authentication.getPrincipal()))
+        {
+            return "redirect:/notes";
+        }
 
         noteService.RemoveNote(id);
         return "redirect:/notes";
@@ -71,4 +93,8 @@ public class NoteController {
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }
 
+    private boolean HasAccess(Long noteId, Long userId)
+    {
+        return noteService.HasAccess(noteId, userId);
+    }
 }

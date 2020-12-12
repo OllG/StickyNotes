@@ -13,4 +13,6 @@ public interface NoteService {
     Note editNote(NoteDto noteDto);
 
     void RemoveNote(Long id);
+
+    public boolean HasAccess(Long noteId, Long userId);
 }

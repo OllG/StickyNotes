@@ -36,6 +36,12 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    public boolean HasAccess(Long noteId, Long userId)
+    {
+        return noteRepository.findById(noteId).get().getUser().getId() == userId;
+    }
+
+    @Override
     public Note createNote(NoteCreationDto noteDto) {
         Note note = noteConverter.createNewNoteConversion(noteDto);
         note.setCreationTime(LocalDateTime.now());

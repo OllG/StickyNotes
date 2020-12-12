@@ -33,6 +33,13 @@ public class User {
         notes.remove(note);
     }
 
+    public Boolean HasAccess(Note note)
+    {
+        return notes.contains(note);
+    }
+
+
+
     //checking branches step 2
 
     public String getToken() {
