@@ -8,6 +8,10 @@ import pl.olpinski.stickynotes.data.dto.UserCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.dto.UserDto;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,7 +38,11 @@ public class UserConverter {
 
         noteDtoSet = set.stream().map(note -> noteConverter.convert(note)).collect(Collectors.toSet());
 
-        userDto.setNotes(noteDtoSet);
+        List<NoteDto> noteDtoList = new ArrayList<>(noteDtoSet);
+        if(noteDtoList != null)
+            noteDtoList.sort(new SortByEditDate());
+
+        userDto.setNotes(noteDtoList);
 
         return userDto;
     }
@@ -64,5 +72,25 @@ public class UserConverter {
         user.setLastName(userCreationDto.getLastName());
 
         return user;
+    }
+}
+
+class SortByEditDate implements Comparator<NoteDto>
+{
+    public  int compare(NoteDto a, NoteDto b){
+
+        return GetLastEditTimeOrCreationTime(b).compareTo(GetLastEditTimeOrCreationTime(a));
+    }
+
+
+
+    private LocalDateTime GetLastEditTimeOrCreationTime(NoteDto note)
+    {
+        if(note.getLastEditionTime() != null){
+            return  note.getLastEditionTime();
+        }
+        else{
+            return note.getCreationTime();
+        }
     }
 }
