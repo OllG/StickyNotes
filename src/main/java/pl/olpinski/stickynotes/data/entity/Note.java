@@ -15,10 +15,17 @@ public class Note {
     private User user;
     private String title;
 
+
     @Column(length = 10000)
     private String content;
     private LocalDateTime creationTime;
     private LocalDateTime lastEditionTime;
+
+    @PreRemove
+    private  void RemoveFromUser()
+    {
+        user.RemoveNote(this);
+    }
 
     public Long getId() {
         return id;

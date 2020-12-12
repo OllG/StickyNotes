@@ -47,9 +47,10 @@ public class NoteController {
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/{id}/delete")
     public String deleteNote(@RequestParam("id") Long id){
 
+        noteService.RemoveNote(id);
         return "redirect:/notes";
     }
 

@@ -55,5 +55,8 @@ public class NoteServiceImpl implements NoteService {
         return savedNote;
     }
 
-
+    @Override
+    public void RemoveNote(Long id) {
+        noteRepository.deleteById(id);
+    }
 }

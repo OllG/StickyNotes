@@ -11,4 +11,6 @@ public interface NoteService {
     Note createNote(NoteCreationDto noteCreationDto);
 
     Note editNote(NoteDto noteDto);
+
+    void RemoveNote(Long id);
 }

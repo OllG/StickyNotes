@@ -28,6 +28,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Note> notes = new HashSet<>();
 
+    public void RemoveNote(Note note)
+    {
+        notes.remove(note);
+    }
+
     //checking branches step 2
 
     public String getToken() {
