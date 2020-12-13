@@ -14,5 +14,5 @@ public interface NoteService {
 
     void RemoveNote(Long id);
 
-    public boolean HasAccess(Long noteId, Long userId);
+    public boolean HasAccess(Long noteId, String userLogin);
 }

@@ -42,7 +42,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
             //Success
             else {
                 return new UsernamePasswordAuthenticationToken(
-                        id, password, new ArrayList<>());
+                        login, password, new ArrayList<>());
             }
         } else {
             System.out.println("Error while logging");

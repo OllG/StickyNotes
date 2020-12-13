@@ -1,5 +1,6 @@
 package pl.olpinski.stickynotes.web.controller;
 
+import jdk.nashorn.internal.runtime.Debug;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import pl.olpinski.stickynotes.data.dto.NoteCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.service.NoteService;
 import pl.olpinski.stickynotes.service.UserService;
+
+import java.io.Console;
 
 @Controller
 @RequestMapping("/note")
@@ -28,10 +31,12 @@ public class NoteController {
     @GetMapping("/{id}")
     public String note(@PathVariable Long id, Model model, Authentication authentication){
 
-        if(!HasAccess(id, (Long )authentication.getPrincipal()))
+        if(!HasAccess(id, (String)authentication.getPrincipal()))
         {
             return "redirect:/notes";
         }
+
+
 
         NoteDto noteDto = noteService.getNoteById(id);
         model.addAttribute("note", noteDto);
@@ -41,7 +46,7 @@ public class NoteController {
     @GetMapping("/{id}/edit")
     public String editNoteForm(@PathVariable Long id, Model model, Authentication authentication){
 
-        if(!HasAccess(id, (Long )authentication.getPrincipal()))
+        if(!HasAccess(id, (String )authentication.getPrincipal()))
         {
             return "redirect:/notes";
         }
@@ -54,7 +59,7 @@ public class NoteController {
     @PostMapping("/{id}/edit")
     public ModelAndView editNote(NoteDto noteDto, Authentication authentication){
 
-        if(!HasAccess(noteDto.getId(), (Long )authentication.getPrincipal()))
+        if(!HasAccess(noteDto.getId(), (String)authentication.getPrincipal()))
         {
             return new ModelAndView( "redirect:/notes");
         }
@@ -67,7 +72,7 @@ public class NoteController {
     @PostMapping("/{id}/delete")
     public String deleteNote(@RequestParam("id") Long id, Authentication authentication){
 
-        if(!HasAccess(id, (Long )authentication.getPrincipal()))
+        if(!HasAccess(id, (String)authentication.getPrincipal()))
         {
             return "redirect:/notes";
         }
@@ -93,8 +98,8 @@ public class NoteController {
         return new ModelAndView("redirect:/note/" + savedNote.getId());
     }
 
-    private boolean HasAccess(Long noteId, Long userId)
+    private boolean HasAccess(Long noteId, String userLogin)
     {
-        return noteService.HasAccess(noteId, userId);
+        return noteService.HasAccess(noteId, userLogin);
     }
 }

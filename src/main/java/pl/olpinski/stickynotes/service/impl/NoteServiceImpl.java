@@ -8,6 +8,7 @@ import pl.olpinski.stickynotes.data.entity.Note;
 import pl.olpinski.stickynotes.data.dto.NoteCreationDto;
 import pl.olpinski.stickynotes.data.dto.NoteDto;
 import pl.olpinski.stickynotes.data.repository.NoteRepository;
+import pl.olpinski.stickynotes.data.repository.UserRepository;
 import pl.olpinski.stickynotes.service.NoteService;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class NoteServiceImpl implements NoteService {
     private Logger logger = LoggerFactory.getLogger(NoteServiceImpl.class);
     private NoteRepository noteRepository;
     private NoteConverter noteConverter;
+    private UserRepository userRepository;
 
     public NoteServiceImpl(NoteRepository noteRepository, NoteConverter noteConverter) {
         this.noteRepository = noteRepository;
@@ -36,9 +38,10 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public boolean HasAccess(Long noteId, Long userId)
+    public boolean HasAccess(Long noteId, String userLogin)
     {
-        return noteRepository.findById(noteId).get().getUser().getId() == userId;
+        String loginByNote = noteRepository.findById(noteId).get().getUser().getLogin();
+        return loginByNote.equalsIgnoreCase(userLogin);
     }
 
     @Override

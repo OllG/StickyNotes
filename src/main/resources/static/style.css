@@ -1,8 +1,9 @@
 .note{
-    color: #000042;
+    color: #0C151D;
     position: relative;
     width: 600px;
     height: 640px;
+    border-radius: 3px;
 
     text-align: center;
 
@@ -11,7 +12,7 @@
     word-break: break-all;
     -ms-word-break: break-all;
 
-    background-color: #feff9c;
+    background-color: #F9F8DC;
     box-shadow:
             5px 5px 25px 7px rgba(0, 0, 0, .35),
             -5px -5px 15px rgba(0, 0, 0, .1);
@@ -53,13 +54,15 @@ a.note-nav{
 .note-prev{
     width: 320px;
     height: 320px;
+    border-radius: 3px;
+
     text-align: center;
     display: inline-block;
     margin: 25px;
     box-shadow:
             5px 5px 25px 7px rgba(0, 0, 0, .35),
             -5px -5px 15px rgba(0, 0, 0, .1);
-    background-color: #feff9c;
+    background-color: #F9F8DC;
     padding: 20px;
     overflow: hidden;
 }
